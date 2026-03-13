@@ -1,0 +1,694 @@
+/* =====================================================
+   MARIAMA DIONE — Portfolio  |  style.css
+   ===================================================== */
+
+/* ── Variables de thème ── */
+:root,                              /* Cible l'élément racine HTML et l'attribut data-theme="dark" */
+[data-theme="dark"] {               /* Applique ces variables quand le thème sombre est actif */
+  --bg-primary:    #0a0a0f;         /* Couleur de fond principale : noir très profond avec teinte bleue */
+  --bg-secondary:  #111118;         /* Fond secondaire légèrement plus clair que le primaire */
+  --bg-card:       #16161f;         /* Fond des cartes et éléments en surélévation */
+  --bg-card-hover: #1c1c28;         /* Fond des cartes au survol, légèrement plus lumineux */
+  --border-color:  rgba(255,255,255,0.07); /* Couleur des bordures : blanc très transparent */
+  --text-primary:  #f0f0f5;         /* Couleur du texte principal : blanc cassé légèrement bleuté */
+  --text-secondary:#9898b0;         /* Texte secondaire : gris moyen avec teinte violacée */
+  --text-muted:    #5a5a72;         /* Texte atténué : gris foncé pour infos peu importantes */
+  --accent:        #7c5cfc;         /* Couleur d'accentuation principale : violet vif */
+  --accent-rgb:    124,92,252;      /* Valeur RGB de l'accent pour usage dans rgba() */
+  --accent-glow:   rgba(124,92,252,0.3); /* Lueur violette semi-transparente pour effets */
+  --nav-bg:        rgba(10,10,15,0.88);  /* Fond de la navigation avec légère transparence */
+  --shadow-card:   0 20px 60px rgba(0,0,0,0.4); /* Ombre portée des cartes */
+}
+
+[data-theme="light"] {              /* Variables spécifiques au thème clair */
+  --bg-primary:    #f4f4f8;         /* Fond principal clair : blanc légèrement grisé */
+  --bg-secondary:  #eaeaf2;         /* Fond secondaire clair : gris très pâle */
+  --bg-card:       #ffffff;         /* Fond des cartes : blanc pur */
+  --bg-card-hover: #f0f0fb;         /* Fond des cartes au survol : blanc légèrement violacé */
+  --border-color:  rgba(0,0,0,0.08); /* Bordures : noir très transparent pour le thème clair */
+  --text-primary:  #12121a;         /* Texte principal : quasi-noir */
+  --text-secondary:#44445a;         /* Texte secondaire : gris foncé */
+  --text-muted:    #8888a0;         /* Texte atténué : gris moyen */
+  --accent:        #6040e8;         /* Accent clair : violet légèrement différent du mode sombre */
+  --accent-rgb:    96,64,232;       /* RGB de l'accent clair */
+  --accent-glow:   rgba(96,64,232,0.15); /* Lueur plus discrète pour le thème clair */
+  --nav-bg:        rgba(244,244,248,0.9); /* Fond navigation clair semi-transparent */
+  --shadow-card:   0 20px 60px rgba(0,0,0,0.08); /* Ombre légère pour le thème clair */
+}
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; } /* Reset universel : inclut padding/border dans la taille, supprime marges */
+html { scroll-behavior: smooth; }  /* Active le défilement fluide pour les ancres # */
+body {
+  background: var(--bg-primary);   /* Applique la couleur de fond définie dans les variables */
+  color: var(--text-primary);      /* Couleur de texte par défaut pour toute la page */
+  font-family: 'Outfit', sans-serif; /* Police principale : Outfit (Google Fonts), sans-serif en fallback */
+  transition: background 0.4s ease, color 0.4s ease; /* Transition douce lors du changement de thème */
+  overflow-x: hidden;              /* Masque le défilement horizontal non voulu */
+}
+
+/* =====================================================
+   CURSEUR PERSONNALISÉ
+   ===================================================== */
+.cursor {
+  width: 8px; height: 8px;         /* Petit point de 8px de diamètre */
+  background: var(--accent);       /* Coloré avec la couleur d'accent (violet) */
+  border-radius: 50%;              /* Forme circulaire parfaite */
+  position: fixed; top: 0; left: 0; /* Positionné en haut gauche, fixe par rapport au viewport */
+  pointer-events: none; z-index: 9999; /* Ne bloque pas les clics, affiché au-dessus de tout */
+  transform: translate(-50%,-50%); /* Centre le point sur la position exacte du curseur */
+  transition: transform 0.12s ease, background 0.3s; /* Animation rapide du mouvement */
+}
+.cursor-ring {
+  width: 38px; height: 38px;       /* Anneau plus grand autour du curseur : 38px de diamètre */
+  border: 1.5px solid var(--accent); /* Bordure fine de couleur accent */
+  border-radius: 50%;              /* Forme circulaire */
+  position: fixed; top: 0; left: 0; /* Fixé comme le curseur principal */
+  pointer-events: none; z-index: 9998; /* Sous le point du curseur (z-index légèrement inférieur) */
+  transform: translate(-50%,-50%); /* Centre l'anneau sur le curseur */
+  transition: width 0.25s, height 0.25s, left 0.08s, top 0.08s, border-color 0.3s; /* Suivi légèrement en retard pour effet traîne */
+  opacity: 0.55;                   /* Semi-transparent pour ne pas gêner la lecture */
+}
+
+/* =====================================================
+   NAVIGATION
+   ===================================================== */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; /* Collée en haut, s'étend sur toute la largeur */
+  display: flex; align-items: center; justify-content: space-between; /* Flexbox : logo à gauche, liens à droite */
+  padding: 0 5%;                   /* Marges latérales de 5% de la largeur */
+  height: 64px;                    /* Hauteur fixe de la barre de navigation */
+  background: var(--nav-bg);       /* Fond semi-transparent défini en variable */
+  backdrop-filter: blur(16px);     /* Effet verre dépoli derrière la nav */
+  border-bottom: 1px solid var(--border-color); /* Ligne de séparation subtile en bas */
+  z-index: 100;                    /* Reste au-dessus du contenu de la page */
+  transition: background 0.4s, border-color 0.4s, box-shadow 0.3s; /* Transitions pour le changement de thème */
+}
+nav.scrolled {
+  box-shadow: 0 4px 30px rgba(var(--accent-rgb), 0.08); /* Légère ombre violette quand la page défile */
+}
+.logo {
+  font-family: 'Bebas Neue', sans-serif; /* Police condensée et impactante pour le logo */
+  font-size: 1.7rem; letter-spacing: 2px; /* Taille et espacement des lettres du logo */
+  color: var(--text-primary);      /* Couleur du texte principal */
+  user-select: none;               /* Empêche la sélection du texte du logo par clic */
+}
+.logo span { color: var(--accent); } /* La partie colorée du logo en violet */
+
+.nav-right { display: flex; align-items: center; gap: 1.5rem; } /* Conteneur droit : liens + toggle, alignés */
+
+.nav-links { display: flex; gap: 2rem; list-style: none; } /* Liens de navigation en ligne, sans puces */
+.nav-links a {
+  color: var(--text-secondary);    /* Couleur grisée par défaut */
+  text-decoration: none;           /* Supprime le soulignement natif */
+  font-size: .9rem; font-weight: 500; /* Taille et graisse du texte des liens */
+  letter-spacing: .5px;            /* Léger espacement entre les lettres */
+  position: relative;              /* Nécessaire pour positionner le pseudo-élément ::after */
+  transition: color 0.2s;          /* Transition de couleur rapide au survol */
+}
+.nav-links a::after {
+  content: '';                     /* Crée un pseudo-élément vide (la ligne sous le lien) */
+  position: absolute; bottom: -3px; left: 0; /* Positionné juste sous le texte */
+  width: 0; height: 2px;           /* Commence invisible (largeur 0) */
+  background: var(--accent);       /* Ligne de couleur accent */
+  border-radius: 2px;              /* Extrémités arrondies */
+  transition: width 0.3s ease;     /* Animation de gauche à droite au survol */
+}
+.nav-links a:hover { color: var(--text-primary); } /* Texte plus clair au survol */
+.nav-links a:hover::after { width: 100%; }          /* La ligne se déploie à 100% au survol */
+.nav-links a.active { color: var(--accent); }       /* Lien actif coloré en violet */
+.nav-links a.active::after { width: 100%; }         /* Ligne toujours visible pour le lien actif */
+
+/* ── Toggle thème ── */
+.theme-toggle {
+  position: relative;              /* Contexte de positionnement pour la pilule intérieure */
+  width: 56px; height: 28px;       /* Dimensions du bouton toggle */
+  background: var(--bg-card);      /* Fond du toggle */
+  border: 1.5px solid var(--border-color); /* Bordure subtile */
+  border-radius: 99px;             /* Forme de pilule */
+  cursor: pointer;                 /* Curseur main au survol */
+  transition: background 0.4s, border-color 0.3s; /* Transitions thème */
+  flex-shrink: 0;                  /* Ne rétrécit pas si l'espace manque */
+}
+.theme-toggle:hover { border-color: var(--accent); } /* Bordure violette au survol */
+.theme-toggle .pill {
+  position: absolute; top: 3px; left: 3px; /* Positionnée en haut à gauche avec marge de 3px */
+  width: 20px; height: 20px;       /* Taille de la pilule coulissante */
+  border-radius: 50%;              /* Forme circulaire */
+  background: var(--accent);       /* Pilule de couleur accent */
+  transition: transform 0.35s cubic-bezier(.68,-.55,.27,1.55), background 0.4s; /* Animation rebond */
+}
+[data-theme="light"] .theme-toggle .pill { transform: translateX(28px); } /* Pilule à droite en mode clair */
+.theme-toggle .icon-moon,
+.theme-toggle .icon-sun {
+  position: absolute; top: 50%; transform: translateY(-50%); /* Centré verticalement */
+  font-size: 12px; line-height: 1; /* Petite icône */
+  pointer-events: none;            /* Les icônes ne captent pas les événements souris */
+  transition: opacity 0.25s;       /* Transition d'opacité lors du changement de thème */
+}
+.theme-toggle .icon-moon { left: 7px; }  /* Lune positionnée à gauche */
+.theme-toggle .icon-sun  { right: 7px; } /* Soleil positionné à droite */
+[data-theme="dark"]  .theme-toggle .icon-sun  { opacity: 0.3; } /* Soleil atténué en mode sombre */
+[data-theme="dark"]  .theme-toggle .icon-moon { opacity: 1; }   /* Lune visible en mode sombre */
+[data-theme="light"] .theme-toggle .icon-moon { opacity: 0.3; } /* Lune atténuée en mode clair */
+[data-theme="light"] .theme-toggle .icon-sun  { opacity: 1; }   /* Soleil visible en mode clair */
+
+/* ── Hamburger mobile ── */
+.nav-burger {
+  display: none; flex-direction: column; gap: 5px; /* Caché par défaut, visible sur mobile */
+  background: none; border: none; cursor: pointer; padding: 4px; /* Bouton sans style natif */
+}
+.nav-burger span {
+  display: block; width: 22px; height: 2px; /* Chaque trait du hamburger */
+  background: var(--text-primary); /* Couleur du texte pour les traits */
+  border-radius: 2px;              /* Extrémités légèrement arrondies */
+  transition: all 0.3s;            /* Animation pour la transformation en croix */
+}
+.nav-burger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }  /* 1er trait : bras gauche de la croix */
+.nav-burger.open span:nth-child(2) { opacity: 0; }                                /* Trait du milieu : disparaît */
+.nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); } /* 3e trait : bras droit de la croix */
+
+/* =====================================================
+   PARTICULES DE FOND
+   ===================================================== */
+#particles-canvas {
+  position: fixed; inset: 0;       /* Couvre tout le viewport (top/right/bottom/left = 0) */
+  pointer-events: none; z-index: 0; /* Derrière tout le contenu, ne bloque pas les interactions */
+  opacity: 0.5;                    /* Semi-transparent pour rester discret */
+}
+
+/* =====================================================
+   HERO
+   ===================================================== */
+.hero {
+  min-height: 100vh;               /* Au moins toute la hauteur de l'écran */
+  display: flex; align-items: center; /* Centre le contenu verticalement */
+  padding: 80px 5% 60px;           /* Espace pour la nav en haut (80px) + marges */
+  position: relative; overflow: hidden; /* Contexte pour les orbs positionnées en absolu */
+}
+.hero-orb, .hero-orb2 {
+  position: absolute; border-radius: 50%; /* Cercles flous décorés en position absolue */
+  filter: blur(80px); pointer-events: none; /* Très flous, ne bloquent pas les clics */
+  transition: background 0.4s;     /* Transition de couleur lors du changement de thème */
+}
+.hero-orb {
+  width: 420px; height: 420px;     /* Grande sphère de lumière violette */
+  background: var(--accent-glow);  /* Couleur violette transparente */
+  top: -60px; right: -80px;        /* Positionnée en haut à droite, partiellement hors écran */
+  animation: orbFloat 8s ease-in-out infinite; /* Flottement lent et continu */
+}
+.hero-orb2 {
+  width: 300px; height: 300px;     /* Sphère secondaire plus petite (bleu-cyan) */
+  background: rgba(0,200,255,0.06); /* Couleur cyan très transparente */
+  bottom: 40px; left: -60px;       /* En bas à gauche, légèrement hors écran */
+  animation: orbFloat 10s ease-in-out infinite reverse; /* Flottement inversé, plus lent */
+}
+@keyframes orbFloat {
+  0%,100% { transform: translateY(0) scale(1); }    /* Position normale */
+  50%      { transform: translateY(-30px) scale(1.05); } /* Monte de 30px et grossit légèrement */
+}
+
+.hero-inner {
+  max-width: 1200px; margin: 0 auto; width: 100%; /* Centré avec largeur max */
+  display: flex; align-items: center; gap: 4rem;   /* Texte et avatar côte à côte */
+  position: relative; z-index: 1;  /* Au-dessus des orbs de fond */
+}
+.hero-text { flex: 1; }            /* Le texte prend tout l'espace disponible restant */
+
+/* Badge disponible */
+.hero-badge {
+  display: inline-flex; align-items: center; gap: .5rem; /* Badge en ligne avec icône */
+  background: var(--bg-card);      /* Fond de carte */
+  border: 1px solid var(--border-color); /* Bordure subtile */
+  color: var(--text-secondary);    /* Texte grisé */
+  font-size: .12rem; font-weight: 500; /* Petit texte semi-gras */
+  padding: .4rem 1rem; border-radius: 99px; /* Forme pilule avec rembourrage */
+  margin-bottom: 1.5rem;           /* Espace sous le badge */
+  opacity: 0; animation: fadeSlideUp 0.7s 0.2s forwards; /* Apparaît en glissant vers le haut, délai 0.2s */
+}
+.badge-dot {
+  width: 7px; height: 7px; border-radius: 50%; /* Petit point circulaire vert */
+  background: #4cdb82;             /* Vert "disponible" */
+  box-shadow: 0 0 6px #4cdb82;     /* Lueur verte autour du point */
+  animation: pulse 2s infinite;    /* Pulsation continue pour attirer l'attention */
+}
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.35;} } /* Clignotement doux en boucle */
+
+/* Titre héro */
+.hero-name {
+  font-family: 'Bebas Neue', sans-serif; /* Police d'impact pour le nom */
+  font-size: clamp(3.5rem, 8vw, 7rem); /* Taille fluide : min 3.5rem, 8% viewport, max 7rem */
+  line-height: .95; letter-spacing: 2px; /* Interlignage serré, lettres espacées */
+  color: var(--text-primary);      /* Couleur principale */
+  opacity: 0; animation: fadeSlideUp 0.7s 0.4s forwards; /* Apparition retardée de 0.4s */
+}
+.hero-name .line2 {
+  display: block;                  /* Force le passage à la ligne */
+  color: transparent;              /* Texte invisible */
+  -webkit-text-stroke: 2px var(--accent); /* Contour violet : effet texte "outline" */
+}
+
+.hero-role {
+  font-size: 2rem; font-weight: 500; /* Taille normale, semi-gras */
+  color: var(--accent);            /* Rôle affiché en violet */
+  margin: 1.2rem 0 .8rem; letter-spacing: .5px; /* Marges et espacement */
+  opacity: 0; animation: fadeSlideUp 0.7s 0.6s forwards; /* Apparition retardée de 0.6s */
+}
+
+/* Typing cursor */
+.hero-role .typed-cursor {
+  display: inline-block; width: 2px; height: 1em; /* Fine barre verticale */
+  background: var(--accent);       /* Curseur de couleur accent */
+  margin-left: 2px;                /* Léger espace après le texte tapé */
+  animation: blink 1s step-end infinite; /* Clignotement discret (step-end = sans transition) */
+  vertical-align: middle;          /* Aligné avec le texte environnant */
+}
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} } /* Alternance visible/invisible */
+
+.hero-bio {
+  color: var(--text-secondary);    /* Texte grisé pour la description */
+  font-size: .95rem; line-height: 1.7; max-width: 500px; /* Lisibilité optimale */
+  opacity: 0; animation: fadeSlideUp 0.7s 0.8s forwards; /* Apparition retardée de 0.8s */
+}
+
+.hero-actions {
+  display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; /* Boutons côte à côte, passent à la ligne si besoin */
+  opacity: 0; animation: fadeSlideUp 0.7s 1s forwards; /* Apparition retardée de 1s */
+}
+
+/* Stats héro */
+.hero-stats {
+  display: flex; gap: 2rem; margin-top: 2.5rem; flex-wrap: wrap; /* Statistiques en ligne */
+  opacity: 0; animation: fadeSlideUp 0.7s 1.1s forwards; /* Derniers éléments à apparaître */
+}
+.stat-item { text-align: center; } /* Chaque stat centrée */
+.stat-num {
+  font-family: 'Bebas Neue', sans-serif; /* Chiffre en police d'impact */
+  font-size: 5rem; color: var(--accent); /* Grand et violet */
+  line-height: 1;                  /* Pas d'interlignage supplémentaire */
+}
+.stat-label { font-size: .72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-top: .2rem; } /* Label en petites majuscules atténuées */
+
+/* Boutons */
+.btn-primary, .btn-ghost {
+  display: inline-flex; align-items: center; gap: .5rem; /* Icône + texte alignés */
+  padding: .7rem 1.5rem; border-radius: 8px;             /* Taille et coins arrondis */
+  font-size: .20rem; font-weight: 600;                    /* Texte légèrement gras */
+  text-decoration: none;           /* Supprime le soulignement des liens */
+  transition: all 0.25s;           /* Transition globale pour tous les effets */
+  letter-spacing: .4px;            /* Léger espacement des lettres */
+}
+.btn-primary svg, .btn-ghost svg { width:16px; height:16px; } /* Icônes SVG normalisées à 16px */
+.btn-primary {
+  background: var(--accent); color: #fff; /* Bouton plein violet avec texte blanc */
+  box-shadow: 0 4px 20px rgba(var(--accent-rgb), 0.35); /* Ombre violette sous le bouton */
+}
+.btn-primary:hover { opacity:.85; transform:translateY(-3px); box-shadow: 0 8px 28px rgba(var(--accent-rgb), 0.45); } /* Survol : légèrement transparent, monte, ombre plus forte */
+.btn-ghost {
+  background: var(--bg-card);      /* Fond de carte au lieu de plein */
+  border: 1.5px solid var(--border-color); /* Bordure subtile */
+  color: var(--text-primary);      /* Texte de couleur principale */
+}
+.btn-ghost:hover { border-color:var(--accent); color:var(--accent); transform:translateY(-3px); } /* Survol : bordure et texte violets, monte */
+
+/* Avatar */
+.hero-visual {
+  flex-shrink: 0;                  /* Ne rétrécit pas quand l'espace manque */
+  opacity: 0; animation: fadeSlideLeft 0.8s 0.5s forwards; /* Glisse depuis la droite, délai 0.5s */
+}
+.avatar-card {
+  background: var(--bg-card);      /* Fond de la carte avatar */
+  border: 1px solid var(--border-color); /* Bordure subtile */
+  border-radius: 20px; padding: 2px; /* Coins très arrondis, rembourrage minimal */
+  box-shadow: var(--shadow-card);  /* Ombre portée profonde */
+  transition: background 0.4s, border-color 0.4s; /* Transitions pour changement de thème */
+}
+.avatar-card:hover { border-color: var(--accent); } /* Bordure violette au survol */
+.avatar-inner {
+  border-radius: 18px; overflow: hidden; /* Légèrement moins arrondi que la carte parente */
+  padding: 1.5rem;                 /* Espace intérieur */
+  display: flex; flex-direction: column; align-items: center; gap: 1rem; /* Contenu en colonne centré */
+}
+.avatar-img-wrap {
+  width: 300px; height: 300px; border-radius: 50%; /* Cercle de 110px pour la photo */
+  background: var(--bg-secondary); /* Fond en cas d'absence d'image */
+  display: flex; align-items: center; justify-content: center; /* Centre l'emoji ou l'image */
+  font-size: 3rem;                 /* Taille de l'emoji si pas d'image */
+  border: 3px solid var(--accent); /* Bordure violette autour de la photo */
+  overflow: hidden;                /* Découpe l'image dans le cercle */
+  position: relative;              /* Pour le pseudo-élément rotatif */
+}
+.avatar-img-wrap::after {
+  content: '';                     /* Anneau décoratif tournant autour de la photo */
+  position: absolute; inset: -4px; /* Légèrement plus grand que le conteneur */
+  border-radius: 70%;              /* Forme circulaire */
+  border: 2px solid var(--accent); /* Bordure violette fine */
+  opacity: 0.3;                    /* Très transparent */
+  animation: spin 6s linear infinite; /* Rotation continue sur 6 secondes */
+}
+@keyframes spin { to { transform: rotate(360deg); } } /* Rotation complète à 360° */
+.avatar-img-wrap img { width:100%; height:100%; object-fit:cover; } /* Image couvre tout le cercle */
+.avatar-info { text-align: center; } /* Informations textuelles centrées */
+.avatar-name {
+  font-family:'Bebas Neue',sans-serif; /* Nom en police d'impact */
+  font-size:1.2rem; letter-spacing:2px; color:var(--text-primary); /* Style du nom */
+}
+.avatar-sub { font-size:.8rem; color:var(--accent); margin:.2rem 0 .8rem; } /* Sous-titre violet */
+.avatar-socials { display:flex; gap:.5rem; justify-content:center; } /* Icônes sociales centrées */
+.social-pill {
+  display:inline-flex; align-items:center; gap:.35rem; /* Pilule avec icône + texte */
+  background:var(--bg-secondary); border:1px solid var(--border-color); /* Fond et bordure discrets */
+  color:var(--text-secondary);    /* Texte grisé */
+  font-size:.72rem; font-weight:600; /* Petit texte gras */
+  padding:.3rem .7rem; border-radius:99px; /* Forme pilule */
+  text-decoration:none;           /* Supprime le soulignement */
+  transition: all 0.2s;           /* Transition globale rapide */
+}
+.social-pill svg { width:12px; height:12px; fill:currentColor; } /* Icône SVG de 12px */
+.social-pill:hover { color:var(--accent); border-color:var(--accent); } /* Violet au survol */
+
+/* =====================================================
+   KEYFRAMES GÉNÉRAUX
+   ===================================================== */
+@keyframes fadeSlideUp {
+  from { opacity:0; transform:translateY(30px); } /* Commence invisible, 30px plus bas */
+  to   { opacity:1; transform:translateY(0); }    /* Arrive à sa position normale et visible */
+}
+@keyframes fadeSlideLeft {
+  from { opacity:0; transform:translateX(40px); } /* Commence invisible, 40px à droite */
+  to   { opacity:1; transform:translateX(0); }    /* Arrive à sa position normale et visible */
+}
+
+/* ── Scroll reveal ── */
+.reveal {
+  opacity: 0; transform: translateY(40px); /* État initial : caché, décalé vers le bas */
+  transition: opacity 0.7s ease, transform 0.7s ease; /* Transition lente et douce */
+}
+.reveal.visible { opacity: 1; transform: translateY(0); } /* Devient visible quand JS ajoute .visible */
+.reveal-left {
+  opacity: 0; transform: translateX(-40px); /* Entrée depuis la gauche */
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal-left.visible { opacity: 1; transform: translateX(0); } /* Revient à la position normale */
+.reveal-right {
+  opacity: 0; transform: translateX(40px); /* Entrée depuis la droite */
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal-right.visible { opacity: 1; transform: translateX(0); } /* Revient à la position normale */
+
+/* =====================================================
+   SECTIONS COMMUNES
+   ===================================================== */
+section { padding: 100px 0; position: relative; z-index: 1; } /* 100px de padding vertical, au-dessus des particules */
+.container { max-width: 1100px; margin: 0 auto; padding: 0 5%; } /* Largeur max centrée avec marges latérales */
+
+.section-label span {
+  font-size: .75rem; font-weight: 700;    /* Très petit et gras */
+  letter-spacing: 2px; text-transform: uppercase; /* Tout en majuscules espacées */
+  color: var(--accent);                   /* Couleur violette */
+  background: var(--bg-card);            /* Fond de carte */
+  border: 1px solid var(--border-color); /* Bordure subtile */
+  padding: .3rem .9rem; border-radius: 99px; /* Forme pilule */
+}
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;  /* Police d'impact pour les titres de section */
+  font-size: clamp(2.2rem, 5vw, 3.8rem);  /* Taille fluide responsive */
+  margin: 1rem 0 .5rem;                  /* Marges autour du titre */
+  color: var(--text-primary);            /* Couleur principale */
+}
+.section-title em { font-style: normal; color: var(--accent); } /* Mot mis en avant en violet sans italique */
+.section-sub { color: var(--text-secondary); font-size: .95rem; margin-bottom: 3rem; } /* Sous-titre grisé */
+
+/* ============================
+   PROJET THUMB — IMAGE + OVERLAY
+============================= */
+.projet-thumb {
+  position: relative;
+  height: 550px;
+  overflow: hidden;
+  border-radius: 12px 12px 0 0;
+  background: #0d0d1a;
+}
+
+/* Image en arrière-plan */
+.projet-thumb img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.5s ease, opacity 0.4s ease;
+  opacity: 0.85;
+}
+
+/* Zoom léger au survol */
+.projet-card:hover .projet-thumb img {
+  transform: scale(1.07);
+  opacity: 1;
+}
+
+/* Overlay dégradé sombre */
+.projet-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(0, 0, 0, 0.35) 0%,
+    rgba(0, 0, 0, 0.65) 100%
+  );
+  z-index: 1;
+  transition: background 0.4s ease;
+}
+
+.projet-card:hover .projet-overlay {
+  background: linear-gradient(
+    160deg,
+    rgba(0, 0, 0, 0.15) 0%,
+    rgba(0, 0, 0, 0.45) 100%
+  );
+}
+
+/* Icône emoji centrée par-dessus l'overlay */
+.projet-thumb-icon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.2rem;
+  z-index: 2;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.6));
+  transition: transform 0.4s ease;
+}
+
+.projet-card:hover .projet-thumb-icon {
+  transform: scale(1.15);
+}
+
+/* Numéro du projet */
+.projet-num {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  z-index: 3;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 20px;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+/* =====================================================
+   COMPÉTENCES
+   ===================================================== */
+.comp-layout { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:start; } /* 2 colonnes pour les barres et les badges */
+.comp-item { margin-bottom:1.5rem; }  /* Espace entre chaque compétence */
+.comp-meta { display:flex; justify-content:space-between; margin-bottom:.5rem; } /* Nom et pourcentage sur la même ligne */
+.comp-name { font-weight:600; font-size:.9rem; color:var(--text-primary); } /* Nom de la compétence */
+.comp-pct  { font-size:.85rem; color:var(--accent); font-weight:700; }      /* Pourcentage en violet gras */
+.bar-bg {
+  height:6px; border-radius:99px;    /* Barre fine et arrondie */
+  background: var(--bg-card);        /* Fond de la barre (partie vide) */
+  overflow:hidden; border: 1px solid var(--border-color); /* Cache le débordement de la progression */
+}
+.bar-fill {
+  height:100%; border-radius:99px;   /* Remplissage qui occupe toute la hauteur */
+  background: linear-gradient(90deg, var(--accent), #a78bfa); /* Dégradé violet vers violet clair */
+  width: 0;                          /* Démarre à 0, le JS animera jusqu'au bon pourcentage */
+  transition: width 1.4s cubic-bezier(.25,.46,.45,.94); /* Animation lente et naturelle */
+}
+
+.comp-badges { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; } /* Grille 3 colonnes pour les badges */
+.skill-badge {
+  background: var(--bg-card);              /* Fond de carte */
+  border: 1px solid var(--border-color);   /* Bordure subtile */
+  border-radius:12px; padding:1.2rem;      /* Coins arrondis et espacement interne */
+  text-align:center;                       /* Contenu centré */
+  transition: background 0.4s, border-color 0.25s, transform 0.25s, box-shadow 0.25s; /* Transitions */
+}
+.skill-badge:hover {
+  border-color:var(--accent); transform:translateY(-4px); /* Monte au survol */
+  box-shadow: 0 8px 24px rgba(var(--accent-rgb),0.15);    /* Légère ombre violette */
+}
+.skill-icon { font-size:1.5rem; margin-bottom:.4rem; } /* Emoji/icône de la technologie */
+.skill-name { font-weight:700; font-size:.85rem; color:var(--text-primary); } /* Nom de la technologie */
+.skill-level { font-size:.72rem; color:var(--text-muted); margin-top:.2rem; } /* Niveau de maîtrise atténué */
+
+/* =====================================================
+   CONTACT
+   ===================================================== */
+.contact-grid { display:grid; grid-template-columns:1fr 1.4fr; gap:3rem; } /* Infos à gauche, formulaire (plus large) à droite */
+.contact-item {
+  display:flex; align-items:flex-start; gap:1rem; /* Icône et texte côte à côte, alignés en haut */
+  margin-bottom:1.5rem;            /* Espace entre les items */
+}
+.ci-icon {
+  width:40px; height:40px; border-radius:10px; /* Icône carrée de 40px avec coins arrondis */
+  background: var(--bg-card);      /* Fond de carte */
+  border: 1px solid var(--border-color); /* Bordure subtile */
+  display:flex; align-items:center; justify-content:center; /* Icône centrée dans le carré */
+  font-size:.9rem; flex-shrink:0;  /* Ne rétrécit pas */
+  transition: border-color 0.3s, background 0.4s; /* Transitions pour thème et survol */
+}
+.contact-item:hover .ci-icon { border-color: var(--accent); } /* Bordure violette au survol de l'item */
+.ci-icon svg { width:16px; height:16px; fill:var(--accent); } /* SVG violet de 16px */
+.ci-label { font-size:.72rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:.2rem; } /* Label en petites majuscules */
+.ci-value { font-size:.9rem; color:var(--text-primary); text-decoration:none; } /* Valeur de contact */
+a.ci-value:hover { color:var(--accent); } /* Lien devient violet au survol */
+
+.contact-form {
+  background: var(--bg-card);              /* Fond de carte pour le formulaire */
+  border: 1px solid var(--border-color);   /* Bordure subtile */
+  border-radius:16px; padding:2rem;        /* Coins arrondis et espacement généreux */
+  transition: background 0.4s, border-color 0.4s; /* Transitions thème */
+}
+.form-title {
+  font-family:'Bebas Neue',sans-serif;     /* Titre du formulaire en police condensée */
+  letter-spacing:2px; font-size:1.1rem;   /* Espacé et légèrement grand */
+  color:var(--text-primary); margin-bottom:1.5rem; /* Marge avant les champs */
+}
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; } /* Deux champs côte à côte (prénom/nom) */
+.form-group { display:flex; flex-direction:column; margin-bottom:1rem; } /* Chaque champ en colonne (label + input) */
+.form-group label {
+  font-size:.75rem; font-weight:600;       /* Label petit et gras */
+  letter-spacing:1px; text-transform:uppercase; /* Majuscules espacées */
+  color:var(--text-muted); margin-bottom:.4rem;  /* Gris atténué, espace avant le champ */
+}
+.form-group input,
+.form-group textarea {
+  background: var(--bg-secondary);         /* Fond légèrement différent de la carte */
+  border: 1px solid var(--border-color);   /* Bordure subtile */
+  color: var(--text-primary);              /* Texte de couleur principale */
+  border-radius:8px; padding:.7rem 1rem;   /* Coins arrondis et confort de saisie */
+  font-family:'Outfit',sans-serif; font-size:.9rem; /* Même police que le site */
+  outline:none; resize:vertical;           /* Supprime le outline natif, redimensionnement vertical uniquement */
+  transition: border-color 0.25s, background 0.4s, box-shadow 0.25s; /* Transitions au focus */
+}
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color:var(--accent);              /* Bordure violette au focus */
+  box-shadow: 0 0 0 3px rgba(var(--accent-rgb),0.12); /* Halo violet autour du champ */
+}
+.form-group input::placeholder,
+.form-group textarea::placeholder { color:var(--text-muted); } /* Placeholder dans la couleur atténuée */
+
+.btn-send {
+  width:100%; display:flex; align-items:center; justify-content:center; gap:.6rem; /* Bouton pleine largeur, contenu centré */
+  background: var(--accent); color:#fff;   /* Bouton violet, texte blanc */
+  border:none; border-radius:8px;          /* Pas de bordure native, coins arrondis */
+  padding:.9rem; font-family:'Outfit',sans-serif; /* Rembourrage généreux, même police */
+  font-size:.9rem; font-weight:700;        /* Texte gras */
+  letter-spacing:1px; cursor:pointer;      /* Espacement et curseur main */
+  margin-top:.5rem;                        /* Espace au-dessus du bouton */
+  box-shadow: 0 4px 20px rgba(var(--accent-rgb),0.35); /* Ombre violette */
+  transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s; /* Transitions au survol */
+  position: relative; overflow: hidden;    /* Pour l'effet de brillance ::after */
+}
+.btn-send::after {
+  content: '';                             /* Effet de brillance qui glisse au survol */
+  position: absolute; inset: 0;           /* Couvre tout le bouton */
+  background: rgba(255,255,255,0.08);     /* Voile blanc très transparent */
+  transform: translateX(-100%);           /* Commence à gauche, hors du bouton */
+  transition: transform 0.3s ease;        /* Glisse vers la droite au survol */
+}
+.btn-send:hover::after { transform: translateX(0); } /* L'effet de brillance couvre le bouton */
+.btn-send svg { width:16px; height:16px; }           /* Icône dans le bouton */
+.btn-send:hover { opacity:.88; transform:translateY(-2px); box-shadow:0 8px 28px rgba(var(--accent-rgb),0.45); } /* Survol : transparent, monte, ombre plus forte */
+
+/* Notification envoi */
+.form-toast {
+  display: none;                           /* Caché par défaut, affiché par JS */
+  margin-top: .8rem;                       /* Espace au-dessus de la notification */
+  padding: .7rem 1rem;                     /* Rembourrage confortable */
+  border-radius: 8px;                      /* Coins arrondis */
+  font-size: .100rem; font-weight: 600;     /* Texte lisible et semi-gras */
+  text-align: center;                      /* Centré */
+}
+.form-toast.success { background: rgba(76,219,130,0.15); color:#4cdb82; border:1px solid rgba(76,219,130,0.3); } /* Succès en vert */
+.form-toast.error   { background: rgba(255,80,80,0.12);  color:#ff6060; border:1px solid rgba(255,80,80,0.25); } /* Erreur en rouge */
+
+/* =====================================================
+   FOOTER
+   ===================================================== */
+footer {
+  border-top: 1px solid var(--border-color); /* Ligne de séparation en haut du footer */
+  padding: 2.5rem 5%;                        /* Rembourrage généreux */
+  transition: border-color 0.4s;             /* Transition pour changement de thème */
+  position: relative; z-index: 1;            /* Au-dessus des particules */
+}
+.footer-inner {
+  max-width:1100px; margin:0 auto;           /* Centré et limité en largeur */
+  display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; /* Logo / copyright / sociales répartis */
+}
+.footer-logo { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; color:var(--text-primary); letter-spacing:2px; } /* Logo footer condensé */
+.footer-logo span { color:var(--accent); }  /* Partie colorée du logo footer */
+.footer-copy { font-size:.8rem; color:var(--text-muted); } /* Copyright atténué et petit */
+.footer-socials { display:flex; gap:.8rem; } /* Icônes sociales espacées */
+.footer-socials a {
+  width:34px; height:34px; border-radius:8px; /* Carré arrondi de 34px */
+  background: var(--bg-card); border: 1px solid var(--border-color); /* Fond et bordure discrets */
+  display:flex; align-items:center; justify-content:center; /* Icône centrée */
+  color:var(--text-secondary);               /* Couleur grisée par défaut */
+  transition: all 0.25s;                     /* Transition globale au survol */
+}
+.footer-socials a svg { width:14px; height:14px; fill:currentColor; } /* SVG de 14px en couleur courante */
+.footer-socials a:hover { border-color:var(--accent); color:var(--accent); transform:translateY(-3px); } /* Violet et monte au survol */
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+@media (max-width: 900px) {
+  .comp-layout   { grid-template-columns:1fr; }  /* Compétences en une seule colonne sous 900px */
+  .contact-grid  { grid-template-columns:1fr; }  /* Contact en une seule colonne sous 900px */
+}
+
+@media (max-width: 768px) {
+  .hero-inner    { flex-direction:column; text-align:center; } /* Hero en colonne sur mobile */
+  .hero-actions  { justify-content:center; }     /* Boutons centrés sur mobile */
+  .hero-stats    { justify-content:center; }     /* Stats centrées sur mobile */
+  .hero-bio      { margin:0 auto; }              /* Biographie centrée */
+  .hero-visual   { order: -1; }                  /* Avatar affiché en premier sur mobile */
+  .comp-badges   { grid-template-columns:repeat(2,1fr); } /* 2 colonnes pour les badges sur mobile */
+  .form-row      { grid-template-columns:1fr; }  /* Champs du formulaire en colonne sur mobile */
+
+  /* Nav mobile */
+  .nav-links {
+    position: fixed; top: 64px; left: 0; right: 0; /* Menu déroulant sous la nav fixe */
+    flex-direction: column; gap: 0;                /* Liens en colonne sans espace */
+    background: var(--nav-bg);                    /* Fond semi-transparent comme la nav */
+    backdrop-filter: blur(16px);                  /* Même effet verre dépoli */
+    border-bottom: 1px solid var(--border-color); /* Ligne de séparation en bas */
+    padding: 2rem 5%;                             /* Marges internes */
+    transform: translateY(-120%);                 /* Caché au-dessus de l'écran par défaut */
+    transition: transform 0.35s ease;             /* Glissement vers le bas à l'ouverture */
+    z-index: 99;                                  /* Sous la nav mais au-dessus du contenu */
+  }
+  .nav-links.open { transform: translateY(0); }  /* Visible quand le hamburger est ouvert */
+  .nav-links li { padding: .6rem 0; border-bottom: 1px solid var(--border-color); } /* Séparateurs entre liens */
+  .nav-links li:last-child { border-bottom: none; } /* Pas de séparateur sous le dernier lien */
+  .nav-burger { display: flex; }                 /* Hamburger visible sur mobile */
+}
