@@ -3,7 +3,7 @@
 📌 Description
 
 Bienvenue sur mon portfolio !
-Ce projet présente mes compétences, mes réalisations et mes projets en développement web.
+Ce projet présente mes compétences, mes réalisations.
 
 🚀 Technologies utilisées
 
