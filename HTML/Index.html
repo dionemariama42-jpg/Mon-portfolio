@@ -30,10 +30,10 @@
       <ul class="nav-links">
         <li><a href="#accueil">Accueil</a></li>
         <li><a href="#projets">Projets</a></li>
-        <li><a href="#competences">Compétences</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#competences">Compétences</a></li> 
         <li><a href="#langues">Langues</a></li>
         <li><a href="#experiences">Expériences</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
 
       <!-- Toggle thème -->
@@ -147,62 +147,98 @@
 
     <div class="projets-grid">
 
-      <article class="projet-card reveal">
-        <div class="projet-thumb">
-          <img src="" alt="Portfolio Personnel" />
-          <div class="projet-overlay"></div>
-          <div class="projet-thumb-icon">🌐</div>
-          <span class="projet-num">01</span>
+      <!-- CARTE 1 — Portfolio -->
+      <article class="projet-card projet-card--violet reveal">
+        <div class="projet-bg"></div>
+        <div class="projet-glow"></div>
+        <div class="projet-num">01</div>
+        <div class="projet-thumb-icon">🌐</div>
+
+        <div class="projet-default">
+          <span class="projet-category">Développement Web</span>
+          <div class="projet-title-main">Portfolio<br>Personnel</div>
         </div>
+
         <div class="projet-body">
-          <h3 class="projet-title">Portfolio Personnel</h3>
+          <div class="projet-divider"></div>
+          <div class="projet-title-hover">Portfolio Personnel</div>
           <p class="projet-desc">Site vitrine responsive présentant mes compétences, projets et formulaire de contact.</p>
           <div class="projet-techs">
-            <span class="tech-tag">HTML5</span><br>
-            <span class="tech-tag">CSS3</span><br>
-            <span class="tech-tag">JavaScript</span><br>
-          </div><br>
-          <a href="https://github.com/dionemariama42/portfolio" target="_blank" class="projet-link">Voir le projet →</a>
+            <span class="tech-tag">HTML5</span>
+            <span class="tech-tag">CSS3</span>
+            <span class="tech-tag">JavaScript</span>
+          </div>
+          <a href="https://github.com/dionemariama42/portfolio" target="_blank" class="projet-link">
+            Voir le projet →
+          </a>
         </div>
-      </article><br>
+      </article>
 
-      <article class="projet-card reveal">
-        <div class="projet-thumb">
-          <img src="../IMAGES/projet-rstudio.png" alt="Analyse de données" />
-          <div class="projet-overlay"></div>
-          <div class="projet-thumb-icon">🧮</div>
-          <span class="projet-num">02</span>
+      <!-- CARTE 2 — Analyse données -->
+      <article class="projet-card projet-card--bleu reveal">
+        <div class="projet-bg"></div>
+        <div class="projet-glow"></div>
+        <div class="projet-num">02</div>
+        <div class="projet-thumb-icon">🧮</div>
+
+        <div class="projet-default">
+          <span class="projet-category">Analyse de données</span>
+          <div class="projet-title-main">Analyse &<br>Interprétation</div>
         </div>
+
         <div class="projet-body">
-          <h3 class="projet-title">Analyse et Interprétation des Données</h3>
-          <p class="projet-desc">A partir du logiciel RSTUDIO ,l'analyse de la Qualité de l'air, le bruit et le microclimat de THIES a etait faites</p>
+          <div class="projet-divider"></div>
+          <div class="projet-title-hover">Analyse & Interprétation des Données</div>
+          <p class="projet-desc">Analyse de la qualité de l'air, du bruit et du microclimat de Thiès à partir de RStudio.</p>
           <div class="projet-techs">
             <span class="tech-tag">RStudio</span>
+            <span class="tech-tag">Statistiques</span>
+            <img src="../" alt="">
           </div>
-          <a href="https://github.com/dionemariama42/portfolio" target="_blank" class="projet-link">Voir le projet →</a>
+          <a href="https://github.com/dionemariama42/portfolio" target="_blank" class="projet-link">
+            Voir le projet →
+          </a>
         </div>
-      </article><br>
+      </article>
 
-      <article class="projet-card reveal">
-        <div class="projet-thumb">
-          <img src="../IMAGES/Image3.jpeg" alt="Collecte de données" />
-          <div class="projet-overlay"></div>
-          <span class="projet-num">03</span>
+      <!-- CARTE 3 — Collecte -->
+      <article class="projet-card projet-card--vert reveal">
+        <div class="projet-bg"></div>
+        <div class="projet-glow"></div>
+        <div class="projet-num">03</div>
+        <div class="projet-thumb-icon">📍</div>
+
+        <div class="projet-default">
+          <span class="projet-category">Collecte de données</span>
+          <div class="projet-title-main">Méthode de<br>Collecte</div>
+
         </div>
+
         <div class="projet-body">
-          <h3 class="projet-title">Méthode de collecte et d'Analyse</h3>
-          <p class="projet-desc">Afin d'étudier le trafic routier de la ville de THIES, des relevées de données ont été faites</p>
+          <div class="projet-divider"></div>
+          <div class="projet-title-hover">Méthode de Collecte et d'Analyse</div>
+          <p class="projet-desc">Étude du trafic routier de la ville de Thiès — relevés de données sur le terrain.</p>
           <div class="projet-techs">
-            <span class="tech-tag">KoBoToolbox</span><br>
+            <span class="tech-tag">KoBoToolbox</span>
             <span class="tech-tag">KoBoCollect</span>
+            <img src="../IMAGES/Capture d’écran .jpg" alt="">
           </div>
-          <a href="https://github.com/dionemariama42/portfolio" target="_blank" class="projet-link">Voir le projet →</a>
+          <a href="https://github.com/dionemariama42/portfolio" target="_blank" class="projet-link">
+            Voir le projet →
+          </a>
         </div>
       </article>
 
     </div>
+
+    <div class="projets-footer">
+      <p class="projets-footer-line">Survolez une carte pour explorer</p>
+    </div>
+
   </div>
+  
 </section>
+
   <!-- ========================
        COMPÉTENCES
   ========================= -->
@@ -282,7 +318,7 @@
       </div>
 
       <div class="langue-card reveal">
-        <div class="langue-flag">An</div>
+        <div class="langue-flag">AN</div>
         <div class="langue-info">
           <div class="langue-name">Anglais</div>
           <div class="langue-niveau">Intermédiaire</div>
@@ -297,7 +333,7 @@
       </div>
 
       <div class="langue-card reveal">
-        <div class="langue-flag">Ar</div>
+        <div class="langue-flag">AR</div>
         <div class="langue-info">
           <div class="langue-name">Arabe</div>
           <div class="langue-niveau">Courant</div>
@@ -464,12 +500,21 @@
             <label for="message">Message</label>
             <textarea id="message" name="message" rows="5" placeholder="Votre message..."></textarea>
           </div>
-          <button type="button" class="btn-send" id="btnSend">
-            ENVOYER
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-              <path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/>
-            </svg>
-          </button>
+          <div class="form-actions">
+            <button type="button" class="btn-send" id="btnSend">
+              ENVOYER
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/>
+              </svg>
+            </button>
+            <button type="button" class="btn-reset" id="btnReset" title="Réinitialiser le formulaire">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                <path d="M3 3v5h5"/>
+              </svg>
+              RÉINITIALISER
+            </button>
+          </div>  
           <div class="form-toast" id="formToast"></div>
         </div>
 
