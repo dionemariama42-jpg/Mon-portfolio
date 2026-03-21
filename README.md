@@ -1,9 +1,7 @@
-🌐 Mon Portfolio
+# 🌐 Portfolio — Mariama DIONE
 
-📌 Description
-
-Bienvenue sur mon portfolio !
-Ce projet présente mes compétences, mes réalisations.
+Portfolio personnel de Mariama DIONE, étudiante en Licence 2 Géomatique
+à l'Université Iba Der Thiam de Thiès.
 
 🚀 Technologies utilisées
 
@@ -23,9 +21,9 @@ Ce projet présente mes compétences, mes réalisations.
 1. Télécharger ou cloner le projet
 2. Ouvrir le fichier "index.html" dans un navigateur
 
-🌍 Aperçu du projet
+## 🔗 Voir le site en ligne
 
-👉 (Ajoute ici le lien de ton site une fois déployé)
+👉 [https://dionemariama42-jpg.github.io/Mon-portfolio/](https://dionemariama42-jpg.github.io/Mon-portfolio/)
 
 👩‍💻 À propos de moi
 
