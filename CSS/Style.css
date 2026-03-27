@@ -462,7 +462,7 @@ section { padding: 100px 0; position: relative; z-index: 1; } /* 100px de paddin
 /* ===== CARTE ===== */
 .projet-card {
   position: relative;              /* Contexte de positionnement pour les enfants absolus */
-  border-radius: 20px;             /* Coins très arrondis pour un look moderne */
+  border-radius: 50px;             /* Coins très arrondis pour un look moderne */
   overflow: hidden;                /* Découpe le contenu dans les bords arrondis */
   cursor: pointer;                 /* Curseur main pour indiquer l'interactivité */
   transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.3s ease; /* Animation naturelle au survol */
@@ -582,7 +582,7 @@ section { padding: 100px 0; position: relative; z-index: 1; } /* 100px de paddin
 }
 
 .projet-divider {
-  width: 40px; height: 2px;        /* Ligne décorative courte */
+  width: 70px; height: 2px;        /* Ligne décorative courte */
   margin-bottom: 16px;             /* Espace sous la ligne avant le titre */
   border-radius: 2px;              /* Extrémités légèrement arrondies */
 }
