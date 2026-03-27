@@ -3,475 +3,541 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mariama DIONE — Portfolio</title>
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-
-  <!-- Feuille de style -->
+  <title>Mariama DIONE — Géomaticienne</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../CSS/Style.css" />
 </head>
 <body>
 
-  <!-- Particules flottantes -->
   <canvas id="particles-canvas"></canvas>
-
-  <!-- Curseur personnalisé -->
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursor-ring"></div>
 
-  <!-- ========================
-       NAVIGATION
-  ========================= -->
-  <nav>
+  <!-- ======================== NAVIGATION ======================== -->
+  <nav id="nav">
     <div class="logo">MD<span>.</span></div>
-
     <div class="nav-right">
       <ul class="nav-links">
         <li><a href="#accueil">Accueil</a></li>
         <li><a href="#projets">Projets</a></li>
-        <li><a href="#competences">Compétences</a></li> 
+        <li><a href="#competences">Compétences</a></li>
         <li><a href="#langues">Langues</a></li>
-        <li><a href="#experiences">Formations</a></li>
+        <li><a href="#formations">Formations</a></li>
         <li><a href="#experiences">Expériences</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
-
-      <!-- Toggle thème -->
-      <button class="theme-toggle" id="themeToggle" aria-label="Changer le thème" title="Sombre / Clair">
+      <button class="theme-toggle" id="themeToggle" aria-label="Changer le thème">
         <span class="icon-moon">🌙</span>
         <span class="icon-sun">☀️</span>
         <span class="pill"></span>
       </button>
-
-      <!-- Burger mobile -->
       <button class="nav-burger" id="navBurger" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
 
-  <!-- ========================
-       HEROL
-  ========================= -->
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#accueil" class="mm-link">Accueil</a>
+    <a href="#projets" class="mm-link">Projets</a>
+    <a href="#competences" class="mm-link">Compétences</a>
+    <a href="#langues" class="mm-link">Langues</a>
+    <a href="#formations" class="mm-link">Formations</a>
+    <a href="#experiences" class="mm-link">Expériences</a>
+    <a href="#contact" class="mm-link">Contact</a>
+  </div>
+
+  <!-- ======================== HERO ======================== -->
   <section id="accueil" class="hero">
     <div class="hero-orb"></div>
     <div class="hero-orb2"></div>
-
     <div class="hero-inner">
-
-      <!-- Texte -->
       <div class="hero-text">
         <div class="hero-badge">
           <span class="badge-dot"></span>
           Disponible pour des opportunités
         </div>
-
         <h1 class="hero-name">
           Mariama
           <span class="line2">DIONE</span>
         </h1>
-
-        <!-- Typing effect -->
         <p class="hero-role" id="heroRole"></p>
-
         <p class="hero-bio">
           Étudiante en Licence 2 Géomatique à l'Université Iba Der Thiam de Thiès.
-          Passionnée par l'informatique, l'analyse et le traitement des données,
-          je suis engagée, motivée et sérieuse avec une bonne capacité d'apprentissage.
+          Passionnée par la géomatique, l'analyse spatiale et le traitement des données,
+          je suis engagée, motivée et sérieuse avec une grande capacité d'apprentissage.
         </p>
-
-        <!-- Statistiques animées -->
         <div class="hero-stats">
           <div class="stat-item">
-            <div class="stat-num" data-target="3" data-suffix="+">0+</div>
+            <div class="stat-num" data-target="3" data-suffix="+">0</div>
             <div class="stat-label">Projets</div>
           </div>
           <div class="stat-item">
-            <div class="stat-num" data-target="4" data-suffix="">0</div>
+            <div class="stat-num" data-target="6" data-suffix="">0</div>
             <div class="stat-label">Compétences</div>
           </div>
+          <div class="stat-item">
+            <div class="stat-num" data-target="4" data-suffix="">0</div>
+            <div class="stat-label">Langues</div>
+          </div>
         </div>
-
         <div class="hero-actions">
           <a href="https://github.com/dionemariama42" target="_blank" class="btn-primary">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
             GitHub
           </a>
           <a href="https://www.linkedin.com/in/mariama-dione" target="_blank" class="btn-ghost">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.21 0 22.23 0z"/>
-            </svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.21 0 22.23 0z"/></svg>
             LinkedIn
           </a>
+          <a href="mailto:mariamadione@email.com" class="btn-ghost">✉ Me contacter</a>
         </div>
       </div>
 
-      <!-- Avatar -->
       <div class="hero-visual">
         <div class="avatar-card">
           <div class="avatar-inner">
             <div class="avatar-img-wrap">
-              <img src="../IMAGES/Image1.jpeg" alt="Mariama Dione" onerror="this.style.display='none'" />
+              <img src="../IMAGES/Image1.jpeg" alt="">
             </div>
             <div class="avatar-info">
               <div class="avatar-name">MARIAMA DIONE</div>
-              <div class="avatar-sub">Géomaticienne</div>
-              <div class="avatar-socials">
-                <a href="https://github.com/dionemariama42" target="_blank" class="social-pill">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.02c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
-                  GitHub
-                </a>
-                <a href="https://www.linkedin.com/in/mariama-dione" target="_blank" class="social-pill">
-                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.21 0 22.23 0z"/></svg>
-                  LinkedIn
-                </a>
+              <div class="avatar-sub">Géomaticienne · Thiès, Sénégal</div>
+              <div class="avatar-badge-row">
+                <span class="avatar-badge">SIG</span>
+                <span class="avatar-badge teal">Photogrammétrie</span>
+                <span class="avatar-badge gold">programmation</span>
+                <span class="avatar-badge">Télédétection</span>
+                <span class="avatar-badge">Cartographie</span>
               </div>
             </div>
           </div>
         </div>
       </div>
-
     </div>
   </section>
 
-  <!-- ========================
-     PROJETS
-========================= -->
-<section id="projets">
-  <div class="container">
-    <div class="section-label reveal"><span>02 — Réalisations</span></div>
-    <h2 class="section-title reveal">Mes <em>Projets</em></h2>
-    <p class="section-sub reveal">Une sélection de travaux réalisés lors de ma formation en Géomatique et Technologie Web.</p>
-
-    <div class="projets-grid">
-
-      <!-- CARTE 1 — Portfolio -->
-      <article class="projet-card projet-card--violet reveal">
-        <div class="projet-bg"></div>
-        <div class="projet-glow"></div>
-        <div class="projet-num">01</div>
-        <div class="projet-thumb-icon">🌐</div>
-
-        <div class="projet-default">
-          <span class="projet-category">Développement Web</span>
-          <div class="projet-title-main">Portfolio<br>Personnel</div>
-        </div>
-
-        <div class="projet-body">
-          <div class="projet-divider"></div>
-          <div class="projet-title-hover">Portfolio Personnel</div>
-          <p class="projet-desc">Site vitrine responsive présentant mes compétences, projets et formulaire de contact.</p>
-          <div class="projet-techs">
-            <span class="tech-tag">HTML5</span>
-            <span class="tech-tag">CSS3</span>
-            <span class="tech-tag">JavaScript</span>
-          </div>
-          <a href="https://github.com/dionemariama42/portfolio" target="_blank" class="projet-link">
-            Voir le projet →
-          </a>
-        </div>
-      </article>
-
-      <!-- CARTE 2 — Analyse données -->
-      <article class="projet-card projet-card--bleu reveal">
-        <div class="projet-bg"></div>
-        <div class="projet-glow"></div>
-        <div class="projet-num">02</div>
-        <div class="projet-thumb-icon">🧮</div>
-
-        <div class="projet-default">
-          <span class="projet-category">Analyse de données</span>
-          <div class="projet-title-main">Analyse &<br>Interprétation</div>
-        </div>
-
-        <div class="projet-body">
-          <div class="projet-divider"></div>
-          <div class="projet-title-hover">Analyse & Interprétation des Données</div>
-          <p class="projet-desc">Analyse de la qualité de l'air, du bruit et du microclimat de Thiès à partir de RStudio.</p>
-          <div class="projet-techs">
-            <span class="tech-tag">RStudio</span>
-            <span class="tech-tag">Statistiques</span>
-            <img src="../" alt="">
-          </div>
-          <a href="https://github.com/dionemariama42/portfolio" target="_blank" class="projet-link">
-            Voir le projet →
-          </a>
-        </div>
-      </article>
-
-      <!-- CARTE 3 — Collecte -->
-      <article class="projet-card projet-card--vert reveal">
-        <div class="projet-bg"></div>
-        <div class="projet-glow"></div>
-        <div class="projet-num">03</div>
-        <div class="projet-thumb-icon">📍</div>
-
-        <div class="projet-default">
-          <span class="projet-category">Collecte de données</span>
-          <div class="projet-title-main">Méthode de<br>Collecte</div>
-
-        </div>
-
-        <div class="projet-body">
-          <div class="projet-divider"></div>
-          <div class="projet-title-hover">Méthode de Collecte et d'Analyse</div>
-          <p class="projet-desc">Étude du trafic routier de la ville de Thiès — relevés de données sur le terrain.</p>
-          <div class="projet-techs">
-            <span class="tech-tag">KoBoToolbox</span>
-            <span class="tech-tag">KoBoCollect</span>
-          </div>
-          <a href="https://github.com/dionemariama42/portfolio" target="_blank" class="projet-link">
-            Voir le projet →
-          </a>
-        </div>
-      </article>
-
+  <!-- ======================== ABOUT STRIP ======================== -->
+  <div class="about-strip">
+    <div class="about-strip-inner">
+      <div class="about-stat reveal">
+        <div class="about-stat-num" data-target="3" data-suffix="+">0</div>
+        <div class="about-stat-lbl">Projets réalisés</div>
+      </div>
+      <div class="about-divider"></div>
+      <div class="about-stat reveal">
+        <div class="about-stat-num" data-target="6" data-suffix="">0</div>
+        <div class="about-stat-lbl">Compétences techniques</div>
+      </div>
+      <div class="about-divider"></div>
+      <div class="about-stat reveal">
+        <div class="about-stat-num" data-target="4" data-suffix="">0</div>
+        <div class="about-stat-lbl">Langues parlées</div>
+      </div>
+      <div class="about-divider"></div>
+      <div class="about-stat reveal">
+        <div class="about-stat-num" data-target="3" data-suffix="">0</div>
+        <div class="about-stat-lbl">Années de formation</div>
+      </div>
     </div>
-
-    <div class="projets-footer">
-      <p class="projets-footer-line">Survolez une carte pour explorer</p>
-    </div>
-
   </div>
-  
-</section>
 
-  <!-- ========================
-       COMPÉTENCES
-  ========================= -->
+  <!-- ======================== PROJETS (TIMELINE ALTERNÉE) ======================== -->
+  <section id="projets">
+    <div class="container">
+      <div class="section-label reveal"><span>02 — Réalisations</span></div>
+      <h2 class="section-title reveal">Mes <em>Projets</em></h2>
+      <p class="section-sub reveal">Une sélection de travaux réalisés lors de ma formation en Géomatique.</p>
+
+      <!-- TIMELINE ALTERNÉE DES PROJETS -->
+      <div class="projets-timeline">
+
+        <!-- Ligne centrale -->
+        <div class="projets-timeline-line"></div>
+
+        <!-- PROJET 1 — gauche -->
+        <div class="pt-item pt-item--left reveal">
+          <div class="pt-connector">
+            <div class="pt-dot pt-dot--violet"></div>
+          </div>
+          <article class="projet-card projet-card--violet">
+            <div class="projet-img-wrap">
+              <img src="images/projet1.jpg" alt="Portfolio Personnel" class="projet-img"
+                   onerror="this.parentElement.innerHTML='<div class=\'projet-img-placeholder\'>🌐</div>'" />
+            </div>
+            <div class="projet-accent-bar"></div>
+            <div class="projet-num">01</div>
+            <div class="projet-content">
+              <span class="projet-category">Développement Web</span>
+              <div class="projet-title">Portfolio Personnel</div>
+              <p class="projet-desc">Site vitrine responsive présentant mes compétences, projets et formulaire de contact. Design moderne avec animations CSS avancées.</p>
+              <div class="projet-techs">
+                <span class="tech-tag">HTML5</span>
+                <span class="tech-tag">CSS3</span>
+                <span class="tech-tag">JavaScript</span>
+              </div>
+              <a href="https://github.com/dionemariama42/portfolio" target="_blank" class="projet-link">Voir le projet →</a>
+            </div>
+          </article>
+          <div class="pt-spacer"></div>
+        </div>
+
+        <!-- PROJET 2 — droite -->
+        <div class="pt-item pt-item--right reveal">
+          <div class="pt-spacer"></div>
+          <div class="pt-connector">
+            <div class="pt-dot pt-dot--bleu"></div>
+          </div>
+          <article class="projet-card projet-card--bleu">
+            <div class="projet-img-wrap">
+              <img src="../IMAGES/image3.jpeg" alt="Analyse Environnementale" class="projet-img"
+                   onerror="this.parentElement.innerHTML='<div class=\'projet-img-placeholder\'>🧮</div>'" />
+            </div>
+            <div class="projet-accent-bar"></div>
+            <div class="projet-num">02</div>
+            <div class="projet-content">
+              <span class="projet-category">Analyse de données</span>
+              <div class="projet-title">Analyse Environnementale</div>
+              <p class="projet-desc">Analyse de la qualitsé de l'air, du bruit et du microclimat de Thiès à partir de données collectées sur le terrain, traitées sous RStudio.</p>
+              <div class="projet-techs">
+                <span class="tech-tag">RStudio</span>
+                <span class="tech-tag">Statistiques</span>
+                <span class="tech-tag">Visualisation</span>
+              </div>
+              <a href="https://github.com/dionemariama42" target="_blank" class="projet-link">Voir le projet →</a>
+            </div>
+          </article>
+        </div>
+
+        <!-- PROJET 3 — gauche -->
+        <div class="pt-item pt-item--left reveal">
+          <div class="pt-connector">
+            <div class="pt-dot pt-dot--vert"></div>
+          </div>
+          <article class="projet-card projet-card--vert">
+            <div class="projet-img-wrap">
+              <img src="../IMAGES/image5.jpeg" alt="Trafic Routier de Thiès" class="projet-img"
+                   onerror="this.parentElement.innerHTML='<div class=\'projet-img-placeholder\'>📍</div>'" />
+            </div>
+            <div class="projet-accent-bar"></div>
+            <div class="projet-num">03</div>
+            <div class="projet-content">
+              <span class="projet-category">Collecte de données terrain</span>
+              <div class="projet-title">Trafic Routier de Thiès</div>
+              <p class="projet-desc">Étude du trafic routier de la ville de Thiès — relevés de données sur le terrain avec KoBoToolbox et analyse spatiale sous QGIS.</p>
+              <div class="projet-techs">
+                <span class="tech-tag">KoBoToolbox</span>
+                <span class="tech-tag">KoBoCollect</span>
+                <span class="tech-tag">QGIS</span>
+              </div>
+              <a href="https://github.com/dionemariama42" target="_blank" class="projet-link">Voir le projet →</a>
+            </div>
+          </article>
+          <div class="pt-spacer"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ======================== COMPÉTENCES ======================== -->
   <section id="competences">
     <div class="container">
       <div class="section-label reveal"><span>03 — Savoir-faire</span></div>
       <h2 class="section-title reveal">Mes <em>Compétences</em></h2>
-      <p class="section-sub reveal">Technologies et outils maîtrisés lors de ma formation.</p>
+      <p class="section-sub reveal">Technologies et outils maîtrisés lors de ma formation en géomatique.</p>
 
-      <div class="comp-layout">
+      <div class="timeline">
 
-        <!-- Barres animées -->
-        <div class="comp-list reveal-left">
-          <div class="comp-item">
-            <div class="comp-meta"><span class="comp-name">Systémes d'Information Géographique</span><span class="comp-pct">50%</span></div>
-            <div class="bar-bg"><div class="bar-fill" data-width="50%"></div></div>
-          </div>
-          <div class="comp-item">
-            <div class="comp-meta"><span class="comp-name">Cartographie(QGIS)</span><span class="comp-pct">80%</span></div>
-            <div class="bar-bg"><div class="bar-fill" data-width="80%"></div></div>
-          </div>
-          <div class="comp-item">
-            <div class="comp-meta"><span class="comp-name">Télédetection</span><span class="comp-pct">50%</span></div>
-            <div class="bar-bg"><div class="bar-fill" data-width="50%"></div></div>
-          </div>
-          <div class="comp-item">
-            <div class="comp-meta"><span class="comp-name">Photogrammétrie</span><span class="comp-pct">60%</span></div>
-            <div class="bar-bg"><div class="bar-fill" data-width="60%"></div></div>
-          </div>
-          <div class="comp-item">
-            <div class="comp-meta"><span class="comp-name">Programmation(PYTHON,SQL,R)</span><span class="comp-pct">60%</span></div>
-            <div class="bar-bg"><div class="bar-fill" data-width="60%"></div></div>
-          </div>
-          <div class="comp-item">
-            <div class="comp-meta"><span class="comp-name">methode de collecte et d'analyse des données</span><span class="comp-pct">70%</span></div>
-            <div class="bar-bg"><div class="bar-fill" data-width="70%"></div></div>
+        <div class="timeline-item reveal">
+          <div class="tl-dot tl-dot--skill"></div>
+          <div class="tl-card tl-card--skill">
+            <div class="tl-header">
+              <div>
+                <div class="tl-title">🌍 Systèmes d'Information Géographique</div>
+                <div class="tl-org">Analyse et gestion de données spatiales</div>
+              </div>
+              <span class="tl-badge tl-badge--skill">Intermédiaire · 50%</span>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="bar-bg"><div class="bar-fill" data-width="50%"></div></div>
+            </div>
+            <p class="tl-desc">Maîtrise des concepts fondamentaux des SIG, création et gestion de couches vectorielles et raster, requêtes spatiales et analyses géographiques.</p>
+            <div class="tl-tags">
+              <span class="tl-tag">QGIS</span>
+              <span class="tl-tag">ArcGIS</span>
+            </div>
           </div>
         </div>
 
-        <!-- Badges -->
-        <div class="comp-badges reveal-right">
-          <div class="skill-badge"><div class="skill-icon">🌍</div><div class="skill-name">Systemes d'Information Géographique</div><div class="skill-level">Intermediaire</div></div>
-          <div class="skill-badge"><div class="skill-icon">🗺️</div><div class="skill-name">Cartographie(QGIS)</div><div class="skill-level">Avancé</div></div>
-          <div class="skill-badge"><div class="skill-icon">🛰️</div><div class="skill-name">Télédetection</div><div class="skill-level">Intermédiaire</div></div>
-          <div class="skill-badge"><div class="skill-icon">🛩️</div><div class="skill-name">Photogrammétrie</div><div class="skill-level">Intermédiaire</div></div>
-          <div class="skill-badge"><div class="skill-icon">💻</div><div class="skill-name">Programmation(PYTHON,SQL,R)</div><div class="skill-level">Avancé</div></div>
-          <div class="skill-badge"><div class="skill-icon">📋</div><div class="skill-name">méthode de collecte et d'analyse des données</div><div class="skill-level">Avancé</div></div>
+        <div class="timeline-item reveal">
+          <div class="tl-dot tl-dot--skill"></div>
+          <div class="tl-card tl-card--skill">
+            <div class="tl-header">
+              <div>
+                <div class="tl-title">🗺️ Cartographie (QGIS)</div>
+                <div class="tl-org">Production de cartes thématiques</div>
+              </div>
+              <span class="tl-badge tl-badge--skill">Avancé · 80%</span>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="bar-bg"><div class="bar-fill bar-fill--teal" data-width="80%"></div></div>
+            </div>
+            <p class="tl-desc">Production de cartes thématiques précises sous QGIS, mise en page cartographique, symbologie avancée, et gestion des projections géographiques.</p>
+            <div class="tl-tags">
+              <span class="tl-tag">QGIS</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="tl-dot tl-dot--skill"></div>
+          <div class="tl-card tl-card--skill">
+            <div class="tl-header">
+              <div>
+                <div class="tl-title">🛰️ Télédétection</div>
+                <div class="tl-org">Traitement d'images satellitaires</div>
+              </div>
+              <span class="tl-badge tl-badge--skill">Intermédiaire · 50%</span>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="bar-bg"><div class="bar-fill" data-width="50%"></div></div>
+            </div>
+            <p class="tl-desc">Traitement et interprétation d'images satellitaires, classification d'occupation du sol, calcul d'indices spectraux (NDVI, NDWI).</p>
+            <div class="tl-tags">
+              <span class="tl-tag">ARCGIS</span>
+              <span class="tl-tag">NDVI</span>
+              <span class="tl-tag">Sentinel</span>
+              <span class="tl-tag">Landsat</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="tl-dot tl-dot--skill"></div>
+          <div class="tl-card tl-card--skill">
+            <div class="tl-header">
+              <div>
+                <div class="tl-title">🛩️ Photogrammétrie</div>
+                <div class="tl-org">Modélisation 3D et MNT</div>
+              </div>
+              <span class="tl-badge tl-badge--skill">Intermédiaire · 60%</span>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="bar-bg"><div class="bar-fill bar-fill--gold" data-width="60%"></div></div>
+            </div>
+            <p class="tl-desc">Acquisition de données par drone, traitement de nuages de points, génération de MNT et orthophotos avec des logiciels spécialisés.</p>
+            <div class="tl-tags">
+              <span class="tl-tag">Drone</span>
+              <span class="tl-tag">Nuage de points</span>
+              <span class="tl-tag">MNT</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="tl-dot tl-dot--skill"></div>
+          <div class="tl-card tl-card--skill">
+            <div class="tl-header">
+              <div>
+                <div class="tl-title">💻 Programmation (Python, SQL, R)</div>
+                <div class="tl-org">Développement et analyse de données</div>
+              </div>
+              <span class="tl-badge tl-badge--skill">Avancé · 80%</span>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="bar-bg"><div class="bar-fill bar-fill--violet" data-width="80%"></div></div>
+            </div>
+            <p class="tl-desc">Requêtes SQL , analyse statistique avec R.</p>
+            <div class="tl-tags">
+              <span class="tl-tag">Python</span>
+              <span class="tl-tag">SQL</span>
+              <span class="tl-tag">R</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="tl-dot tl-dot--skill"></div>
+          <div class="tl-card tl-card--skill">
+            <div class="tl-header">
+              <div>
+                <div class="tl-title">📋 Collecte & Analyse des données</div>
+                <div class="tl-org">Terrain et traitement statistique</div>
+              </div>
+              <span class="tl-badge tl-badge--skill">Avancé · 80%</span>
+            </div>
+            <div class="skill-bar-wrap">
+              <div class="bar-bg"><div class="bar-fill bar-fill--teal" data-width="80%"></div></div>
+            </div>
+            <p class="tl-desc">Conception et déploiement d'enquêtes terrain via KoBoToolbox, nettoyage et analyse de données, production de rapports statistiques et cartographiques.</p>
+            <div class="tl-tags">
+              <span class="tl-tag">KoBoToolbox</span>
+              <span class="tl-tag">GPS</span>
+              <span class="tl-tag">RStudio</span>
+              <span class="tl-tag">Statistiques</span>
+            </div>
+          </div>
         </div>
 
       </div>
     </div>
   </section>
-  <!-- ========================
-     LANGUES
-========================= -->
-<section id="langues">
-  <div class="container">
-    <div class="section-label reveal"><span>04 — Communication</span></div>
-    <h2 class="section-title reveal">Mes <em>Langues</em></h2>
-    <p class="section-sub reveal">Les langues dans lesquelles je peux communiquer et collaborer.</p>
 
-    <div class="langues-grid">
+  <div class="section-divider"></div>
 
-      <div class="langue-card reveal">
-        <div class="langue-flag">🇫🇷</div>
-        <div class="langue-info">
+  <!-- ======================== LANGUES ======================== -->
+  <section id="langues">
+    <div class="container">
+      <div class="section-label reveal"><span>04 — Communication</span></div>
+      <h2 class="section-title reveal">Mes <em>Langues</em></h2>
+      <p class="section-sub reveal">Les langues dans lesquelles je peux communiquer et collaborer efficacement.</p>
+
+      <div class="langues-grid">
+        <div class="langue-card reveal">
+          <div class="langue-flag">🇫🇷</div>
           <div class="langue-name">Français</div>
           <div class="langue-niveau">Courant</div>
+          <div class="langue-circles">
+            <span class="circle filled"></span><span class="circle filled"></span><span class="circle filled"></span><span class="circle filled"></span><span class="circle filled"></span>
+          </div>
         </div>
-        <div class="langue-circles">
-          <span class="circle filled"></span>
-          <span class="circle filled"></span>
-          <span class="circle filled"></span>
-          <span class="circle filled"></span>
-          <span class="circle filled"></span>
-        </div>
-      </div>
-
-      <div class="langue-card reveal">
-        <div class="langue-flag">AN</div>
-        <div class="langue-info">
+        <div class="langue-card reveal">
+          <div class="langue-flag">🇬🇧</div>
           <div class="langue-name">Anglais</div>
           <div class="langue-niveau">Intermédiaire</div>
+          <div class="langue-circles">
+            <span class="circle filled"></span><span class="circle filled"></span><span class="circle filled"></span><span class="circle empty"></span><span class="circle empty"></span>
+          </div>
         </div>
-        <div class="langue-circles">
-          <span class="circle filled"></span>
-          <span class="circle filled"></span>
-          <span class="circle filled"></span>
-          <span class="circle empty"></span>
-          <span class="circle empty"></span>
-        </div>
-      </div>
-
-      <div class="langue-card reveal">
-        <div class="langue-flag">AR</div>
-        <div class="langue-info">
+        <div class="langue-card reveal">
+          <div class="langue-flag">🇸🇦</div>
           <div class="langue-name">Arabe</div>
-          <div class="langue-niveau">Courant</div>
+          <div class="langue-niveau">Intermédiaire</div>
+          <div class="langue-circles">
+            <span class="circle filled"></span><span class="circle filled"></span><span class="circle filled"></span><span class="circle filled"></span><span class="circle empty"></span>
+          </div>
         </div>
-        <div class="langue-circles">
-          <span class="circle filled"></span>
-          <span class="circle filled"></span>
-          <span class="circle filled"></span>
-          <span class="circle filled"></span>
-          <span class="circle filled"></span>
-        </div>
-      </div>
-
-      <div class="langue-card reveal">
-        <div class="langue-flag">🌍</div>
-        <div class="langue-info">
+        <div class="langue-card reveal">
+          <div class="langue-flag">🌍</div>
           <div class="langue-name">Sérère</div>
           <div class="langue-niveau">Langue maternelle</div>
-        </div>
-        <div class="langue-circles">
-          <span class="circle filled"></span>
-          <span class="circle filled"></span>
-          <span class="circle filled"></span>
-          <span class="circle filled"></span>
-          <span class="circle filled"></span>
+          <div class="langue-circles">
+            <span class="circle filled"></span><span class="circle filled"></span><span class="circle filled"></span><span class="circle filled"></span><span class="circle filled"></span>
+          </div>
         </div>
       </div>
-
     </div>
-  </div>
-</section>
+  </section>
 
+  <div class="section-divider"></div>
 
-<!-- ========================
-     EXPÉRIENCES
-========================= -->
-<section id="experiences">
-  <div class="container">
-    <div class="section-label reveal"><span>05 — Parcours</span></div>
-    <h2 class="section-title reveal">Mes <em>Experiances</em></h2>
-    <p class="section-sub reveal">Mon parcours académique et mes formations.</p>
+  <!-- ======================== FORMATIONS ======================== -->
+  <section id="formations">
+    <div class="container">
+      <div class="section-label reveal"><span>05 — Parcours académique</span></div>
+      <h2 class="section-title reveal">Mes <em>Formations</em></h2>
+      <p class="section-sub reveal">Mon parcours académique et mes diplômes.</p>
 
-    <div class="timeline">
-
-      <div class="timeline-item reveal">
-        <div class="tl-dot"></div>
-        <div class="tl-line"></div>
-        <div class="tl-card">
-          <div class="timeline-item reveal">
-        <div class="tl-dot"></div>
-        <div class="tl-line"></div>
-        <div class="tl-card">
-          <div class="tl-header">
-            <div>
-              <div class="tl-title">Stage en Topographie</div>
-              <div class="tl-org">Entreprise Diambar Topo</div>
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-header">
+              <div>
+                <div class="tl-title">Licence — Géomatique</div>
+                <div class="tl-org">Université Iba Der Thiam de Thiès</div>
+              </div>
+              <span class="tl-badge">En cours</span>
+            </div>
+            <div class="tl-date">📅 2024 — Présent</div>
+            <p class="tl-desc">
+              Formation en géomatique et systèmes d'information géographique (SIG).
+              Apprentissage des outils de collecte, de traitement et d'analyse de données spatiales.
+              Initiation à la télédétection, à la cartographie numérique, à la Geodésie et à la programmation (Python, R, SQL).
+            </p>
+            <div class="tl-tags">
+              <span class="tl-tag">SIG</span>
+              <span class="tl-tag">Photogrammétrie</span>
+              <span class="tl-tag">Télédétection</span>
+              <span class="tl-tag">Cartographie</span>
+              <span class="tl-tag">Programmation</span>
+              <span class="tl-tag">Geodésie</span>
             </div>
           </div>
-          <div class="tl-date">📅 en Octobre 2025</div>
-          <p class="tl-desc">
-            Fondamentaux en topographie(levées avec le stationnement total et les GNSS/GPS),le maillage et les calculs de MNT.
-          </p>
         </div>
-      </div>
-</section>
-<!-- ========================
-     FORMATIONS
-========================= -->
-<section id="formations">
-  <div class="container">
-    <div class="section-label reveal"><span>05 — Parcours</span></div>
-    <h2 class="section-title reveal">Mes <em>Formations</em></h2>
-    <p class="section-sub reveal">Mon parcours académique et mes formations.</p>
 
-    <div class="timeline">
-
-      <div class="timeline-item reveal">
-        <div class="tl-dot"></div>
-        <div class="tl-line"></div>
-        <div class="tl-card">
-          <div class="tl-header">
-            <div>
-              <div class="tl-title">Licence — Géomatique</div>
-              <div class="tl-org">Université Iba Der Thiam de Thiès</div>
+        <div class="timeline-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-header">
+              <div>
+                <div class="tl-title">Baccalauréat — Série S2</div>
+                <div class="tl-org">Lycée de Thiès</div>
+              </div>
+              <span class="tl-badge tl-badge--done">Obtenu</span>
             </div>
-            <span class="tl-badge">En cours</span>
-          </div>
-          <div class="tl-date">📅 2024 — Présent</div>
-          <p class="tl-desc">
-            Formation en géomatique et systèmes d'information géographique (SIG).
-            Apprentissage des outils de collecte, traitement et analyse de données spatiales.
-            Initiation à la télédétection, à la cartographie numérique et à la programmation .
-          </p>
-          <div class="tl-tags">
-            <span class="tl-tag">SIG</span>
-            <span class="tl-tag">Photogrammetrie</span>
-            <span class="tl-tag">Télédétection</span>
-            <span class="tl-tag">Cartographie</span>
-            <span class="tl-tag">Programmation</span>
+            <div class="tl-date">📅 2023 — 2024</div>
+            <p class="tl-desc">Baccalauréat scientifique avec spécialisation en sciences de la vie et de la terre.</p>
           </div>
         </div>
       </div>
-      <div class="timeline-item reveal">
-        <div class="tl-dot"></div>
-        <div class="tl-line"></div>
-        <div class="tl-card">
-          <div class="tl-header">
-            <div>
-              <div class="tl-title">Baccalauréat — Série S2</div>
-              <div class="tl-org">Lycée de Thiès</div>
-            </div>
-            <span class="tl-badge tl-badge--done">Obtenu</span>
-          </div>
-          <div class="tl-date">📅 2023 — 2024</div>
-          <p class="tl-desc">
-            Baccalauréat scientifique 
-          </p>
-        </div>
-      </div>
-
     </div>
-  </div>
-</section>
- <!-- ========================
-       CONTACT
-========================= -->
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ======================== EXPÉRIENCES ======================== -->
+  <section id="experiences">
+    <div class="container">
+      <div class="section-label reveal"><span>06 — Expérience professionnelle</span></div>
+      <h2 class="section-title reveal">Mes <em>Expériences</em></h2>
+      <p class="section-sub reveal">Mes stages et expériences pratiques sur le terrain.</p>
+
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <div class="tl-dot"></div>
+          <div class="tl-card">
+            <div class="tl-header">
+              <div>
+                <div class="tl-title">Stage en Topographie</div>
+                <div class="tl-org">Entreprise Diambar Topo</div>
+              </div>
+              <span class="tl-badge tl-badge--exp">Stage</span>
+            </div>
+            <div class="tl-date">📅 Octobre 2025</div>
+            <p class="tl-desc">
+              Acquisition des fondamentaux en topographie : levés avec la station totale et les récepteurs GNSS/GPS,
+              réalisation de maillages et calculs de Modèles Numériques de Terrain (MNT).
+            </p>
+            <div class="tl-tags">
+              <span class="tl-tag">Station totale</span>
+              <span class="tl-tag">GNSS/GPS</span>
+              <span class="tl-tag">MNT</span>
+              <span class="tl-tag">Topographie</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- ======================== CONTACT ======================== -->
   <section id="contact">
     <div class="container">
-      <div class="section-label reveal"><span>06 — Me contacter</span></div>
+      <div class="section-label reveal"><span>07 — Me contacter</span></div>
       <h2 class="section-title reveal">Entrer en <em>Contact</em></h2>
-      <p class="section-sub reveal">Un projet, une opportunité ? Je suis disponible, écrivez-moi !</p>
+      <p class="section-sub reveal">Un projet, une opportunité ? Je suis disponible — écrivez-moi !</p>
 
       <div class="contact-grid">
-
         <div class="contact-left reveal-left">
           <div class="contact-item">
             <div class="ci-icon">✉</div>
-            <div><div class="ci-label">Email</div><div class="ci-value">dionemariama42@gmail.com</div></div>
+            <div><div class="ci-label">Email</div><div class="ci-value">mariamadione@email.com</div></div>
           </div>
           <div class="contact-item">
             <div class="ci-icon">📍</div>
@@ -495,18 +561,21 @@
           </div>
         </div>
 
-        <!-- Formulaire -->
         <div class="contact-form reveal-right" id="contactForm">
-          <div class="form-title">ENVOYER UN MESSAGE</div>
+          <div class="form-title">✉ Envoyer un message</div>
           <div class="form-row">
             <div class="form-group">
               <label for="nom">Nom complet</label>
-              <input type="text" id="nom" name="nom" placeholder="Votre nom" />
+              <input type="text" id="nom" name="nom" placeholder="Votre nom" autocomplete="name" />
             </div>
             <div class="form-group">
               <label for="email">Email</label>
-              <input type="email" id="email" name="email" placeholder="votre@email.com" />
+              <input type="email" id="email" name="email" placeholder="votre@email.com" autocomplete="email" />
             </div>
+          </div>
+          <div class="form-group">
+            <label for="sujet">Sujet</label>
+            <input type="text" id="sujet" name="sujet" placeholder="Objet de votre message" />
           </div>
           <div class="form-group">
             <label for="message">Message</label>
@@ -519,24 +588,21 @@
                 <path d="M22 2L11 13"/><path d="M22 2L15 22l-4-9-9-4 20-7z"/>
               </svg>
             </button>
-            <button type="button" class="btn-reset" id="btnReset" title="Réinitialiser le formulaire">
+            <button type="button" class="btn-reset" id="btnReset">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
                 <path d="M3 3v5h5"/>
               </svg>
               RÉINITIALISER
             </button>
-          </div>  
+          </div>
           <div class="form-toast" id="formToast"></div>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- ========================
-       FOOTER
-  ========================= -->
+  <!-- ======================== FOOTER ======================== -->
   <footer>
     <div class="footer-inner">
       <div class="footer-logo">MD<span>.</span></div>
@@ -548,12 +614,15 @@
         <a href="https://www.linkedin.com/in/mariama-dione" target="_blank" aria-label="LinkedIn">
           <svg viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45zM22.23 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.46c.98 0 1.77-.77 1.77-1.72V1.72C24 .77 23.21 0 22.23 0z"/></svg>
         </a>
+        <a href="mailto:mariamadione@email.com" aria-label="Email">✉</a>
       </div>
     </div>
   </footer>
 
-  <!-- Script externe -->
-  <script src="../JS/App.js"></script>
+  <button class="scroll-top" id="scrollTop" aria-label="Retour en haut">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
 
+  <script src="../JS/App.js"></script>
 </body>
 </html>
