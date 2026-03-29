@@ -42,9 +42,9 @@
   --card-hover:    #fff8f2;
   --border:        rgba(230, 81, 0, 0.20);
   --border-hover:  rgba(230, 81, 0, 0.42);
-  --text:          #2e1200;
-  --text-muted:    #2e1200;
-  --text-faint:    #2e1200;
+  --text:          BLACK;
+  --text-muted:    BLACK;
+  --text-faint:    BLACK;
   --accent:        #e65100;
   --accent2:       #bf360c;
   --accent-glow:   rgba(230, 81, 0, 0.15);
