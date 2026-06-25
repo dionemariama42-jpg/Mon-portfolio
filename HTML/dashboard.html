@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tableau de Bord — Mariama DIONE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:           #f0f4f8;
+      --bg-panel:     #ffffff;
+      --bg-nav:       #ffffff;
+      --border:       #e2e8f0;
+      --accent:       #e07b2a;
+      --accent2:      #c96a1a;
+      --gold:         #f59e0b;
+      --text:         #1a202c;
+      --text-faint:   #718096;
+      --text-mid:     #4a5568;
+      --shadow:       0 2px 12px rgba(0,0,0,0.08);
+      --shadow-lg:    0 8px 32px rgba(0,0,0,0.12);
+      --radius:       14px;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    .db-login-wrap { position: fixed; inset: 0; background: linear-gradient(135deg, #f0f4f8 0%, #e2eaf4 100%); display: flex; align-items: center; justify-content: center; z-index: 9999; }
+    .db-login-card { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 20px; padding: 2.8rem 2.4rem; width: 100%; max-width: 400px; box-shadow: var(--shadow-lg); }
+    .db-login-logo { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; color: var(--text); margin-bottom: 0.3rem; }
+    .db-login-logo span { color: var(--accent); }
+    .db-login-sub { font-size: 0.82rem; color: var(--text-faint); margin-bottom: 2rem; }
+    .db-login-group { margin-bottom: 1.1rem; }
+    .db-login-group label { display: block; font-size: 0.78rem; font-weight: 600; color: var(--text-mid); margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    .db-login-group input { width: 100%; padding: 0.7rem 1rem; background: var(--bg); border: 1.5px solid var(--border); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.92rem; color: var(--text); transition: border-color 0.2s; outline: none; }
+    .db-login-group input:focus { border-color: var(--accent); }
+    .db-login-btn { width: 100%; margin-top: 0.8rem; padding: 0.8rem; background: var(--accent); color: #fff; border: none; border-radius: 10px; font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+    .db-login-btn:hover { background: var(--accent2); }
+    .db-login-err { color: #e53e3e; font-size: 0.82rem; margin-top: 0.6rem; text-align: center; min-height: 1.2rem; }
+    .db-wrap { display: none; min-height: 100vh; }
+    .db-wrap.active { display: block; }
+    .db-nav { position: sticky; top: 0; z-index: 100; background: var(--bg-nav); border-bottom: 1px solid var(--border); padding: 0 2rem; height: 60px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 1px 8px rgba(0,0,0,0.06); }
+    .db-nav-logo { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800; color: var(--text); }
+    .db-nav-logo span { color: var(--accent); }
+    .db-nav-right { display: flex; align-items: center; gap: 1rem; }
+    .db-logout, .db-close-btn { padding: 0.42rem 1.1rem; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 700; cursor: pointer; transition: all 0.2s; border: 1.5px solid; }
+    .db-logout { background: transparent; border-color: rgba(224,123,42,0.4); color: var(--accent); }
+    .db-logout:hover { background: rgba(224,123,42,0.1); border-color: var(--accent); }
+    .db-close-btn { background: transparent; border-color: rgba(100,100,100,0.3); color: var(--text-mid); }
+    .db-close-btn:hover { background: rgba(0,0,0,0.06); border-color: var(--text-mid); }
+    .db-content { max-width: 1280px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+    .db-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
+    .db-stat-card { background: var(--bg-panel); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.3rem 1.5rem; display: flex; align-items: center; gap: 1rem; box-shadow: var(--shadow); transition: transform 0.2s, box-shadow 0.2s; }
+    .db-stat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
+    .db-stat-icon { font-size: 1.8rem; }
+    .db-stat-num { font-family: 'Syne', sans-serif; font-size: 1.7rem; font-weight: 800; color: var(--accent); }
+    .db-stat-lbl { font-size: 0.74rem; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+    .db-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
+    @media (max-width: 768px) { .db-grid { grid-template-columns: 1fr; } }
+    .db-panel { background: var(--bg-panel); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); }
+    .db-panel--full { width: 100%; }
+    .db-panel-header { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.3rem; border-bottom: 1px solid var(--border); background: #fafbfc; }
+    .db-panel-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.95rem; color: var(--text); }
+    .db-panel-badge { font-size: 0.74rem; font-weight: 700; padding: 0.25rem 0.7rem; border-radius: 20px; background: #e2e8f0; color: var(--text-mid); }
+    .db-panel-badge.unread { background: var(--accent); color: #fff; }
+    .db-messages { max-height: 380px; overflow-y: auto; }
+    .db-empty { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.8rem; padding: 3rem 1rem; color: var(--text-faint); font-size: 0.88rem; text-align: center; }
+    .db-empty .icon { font-size: 2.5rem; }
+    .db-msg-item { padding: 1rem 1.3rem; border-bottom: 1px solid var(--border); cursor: pointer; position: relative; transition: background 0.15s; }
+    .db-msg-item:hover { background: #f7fafc; }
+    .db-msg-item.unread { background: #fff8f3; }
+    .db-msg-top { display: flex; justify-content: space-between; margin-bottom: 0.2rem; }
+    .db-msg-name { font-weight: 700; font-size: 0.88rem; color: var(--text); }
+    .db-msg-time { font-size: 0.75rem; color: var(--text-faint); }
+    .db-msg-sujet { font-size: 0.84rem; color: var(--text-mid); font-weight: 600; margin-bottom: 0.2rem; }
+    .db-msg-preview { font-size: 0.8rem; color: var(--text-faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 90%; }
+    .db-msg-unread-dot { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+    #db-map { height: 380px; }
+    .db-table { width: 100%; border-collapse: collapse; font-size: 0.83rem; }
+    .db-table thead tr { background: #f7fafc; }
+    .db-table th { padding: 0.7rem 1rem; text-align: left; font-size: 0.73rem; font-weight: 700; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.06em; border-bottom: 1px solid var(--border); }
+    .db-table td { padding: 0.65rem 1rem; border-bottom: 1px solid var(--border); color: var(--text-mid); }
+    .db-table tr:last-child td { border-bottom: none; }
+    .db-table tr:hover td { background: #f7fafc; }
+    .db-msg-detail { position: fixed; inset: 0; background: rgba(0,0,0,0.35); z-index: 500; display: none; align-items: center; justify-content: center; }
+    .db-msg-detail.open { display: flex; }
+    .db-msg-detail-box { background: var(--bg-panel); border: 1px solid var(--border); border-radius: var(--radius); width: 100%; max-width: 540px; padding: 1.8rem; box-shadow: var(--shadow-lg); }
+    .db-msg-detail-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; }
+    .db-msg-detail-close { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 0.3rem 0.6rem; cursor: pointer; font-size: 0.9rem; color: var(--text-mid); transition: background 0.15s; }
+    .db-msg-detail-close:hover { background: #e2e8f0; }
+    .db-msg-detail-row { display: flex; gap: 0.8rem; margin-bottom: 0.7rem; font-size: 0.84rem; }
+    .db-msg-detail-lbl { font-weight: 700; color: var(--text-faint); width: 60px; flex-shrink: 0; }
+    .db-msg-detail-val { color: var(--text); }
+    .db-msg-detail-body { background: var(--bg); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; margin-top: 0.8rem; font-size: 0.88rem; color: var(--text-mid); line-height: 1.6; white-space: pre-wrap; }
+    .db-msg-delete { margin-top: 1.2rem; padding: 0.5rem 1.1rem; background: transparent; border: 1.5px solid rgba(229,62,62,0.4); border-radius: 8px; color: #e53e3e; font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+    .db-msg-delete:hover { background: rgba(229,62,62,0.08); }
+    .db-notif { position: fixed; bottom: 2rem; right: 2rem; z-index: 9000; background: var(--bg-panel); border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 12px; padding: 1rem 1.4rem; box-shadow: var(--shadow-lg); transform: translateX(120%); transition: transform 0.35s ease; max-width: 320px; }
+    .db-notif.show { transform: translateX(0); }
+    .db-notif-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.88rem; color: var(--text); margin-bottom: 0.2rem; }
+    .db-notif-body { font-size: 0.8rem; color: var(--text-faint); }
+    /* Message carte indisponible */
+    .map-error { display:flex; align-items:center; justify-content:center; height:380px; color:var(--text-faint); font-size:0.88rem; flex-direction:column; gap:0.5rem; }
+  </style>
+</head>
+<body>
+
+  <div id="loginScreen" class="db-login-wrap">
+    <div class="db-login-card">
+      <div class="db-login-logo">MD<span>.</span></div>
+      <div class="db-login-sub">Tableau de bord · Accès administrateur</div>
+      <div class="db-login-group">
+        <label for="loginUser">Identifiant</label>
+        <input type="text" id="loginUser" placeholder="admin" autocomplete="username" />
+      </div>
+      <div class="db-login-group">
+        <label for="loginPass">Mot de passe</label>
+        <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password" />
+      </div>
+      <button class="db-login-btn" id="loginBtn">SE CONNECTER</button>
+      <div class="db-login-err" id="loginErr"></div>
+    </div>
+  </div>
+
+  <div id="dashWrap" class="db-wrap">
+    <nav class="db-nav">
+      <div class="db-nav-logo">MD<span>.</span>
+        <span style="font-size:0.75rem;font-weight:400;color:var(--text-faint);margin-left:0.5rem;">Admin</span>
+      </div>
+      <div class="db-nav-right">
+        <span id="dbClock" style="font-size:0.82rem;color:var(--text-faint);"></span>
+        <button class="db-close-btn" id="closeBtn">✕ Fermer</button>
+        <button class="db-logout" id="logoutBtn">⏻ Déconnexion</button>
+      </div>
+    </nav>
+
+    <div class="db-content">
+      <div style="margin-bottom:1.5rem;">
+        <h1 style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--text);">
+          Tableau de <span style="background:linear-gradient(135deg,var(--accent),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Bord</span>
+        </h1>
+        <p style="font-size:0.85rem;color:var(--text-faint);margin-top:0.3rem;">Vue d'ensemble des visiteurs et des messages reçus</p>
+      </div>
+
+      <div class="db-stats">
+        <div class="db-stat-card"><div class="db-stat-icon">👁️</div><div><div class="db-stat-num" id="statVisits">0</div><div class="db-stat-lbl">Visiteurs</div></div></div>
+        <div class="db-stat-card"><div class="db-stat-icon">✉️</div><div><div class="db-stat-num" id="statMessages">0</div><div class="db-stat-lbl">Messages</div></div></div>
+        <div class="db-stat-card"><div class="db-stat-icon">🔔</div><div><div class="db-stat-num" id="statUnread">0</div><div class="db-stat-lbl">Non lus</div></div></div>
+        <div class="db-stat-card"><div class="db-stat-icon">🌍</div><div><div class="db-stat-num" id="statCountries">0</div><div class="db-stat-lbl">Pays</div></div></div>
+      </div>
+
+      <div class="db-grid">
+        <div class="db-panel">
+          <div class="db-panel-header">
+            <div class="db-panel-title">📬 Messages reçus</div>
+            <div class="db-panel-badge unread" id="unreadBadge">0 non lu</div>
+          </div>
+          <div class="db-messages" id="msgList">
+            <div class="db-empty"><div class="icon">📭</div><p>Aucun message pour l'instant.</p></div>
+          </div>
+        </div>
+
+        <div class="db-panel">
+          <div class="db-panel-header">
+            <div class="db-panel-title">🗺️ Carte des visiteurs</div>
+            <div class="db-panel-badge" id="mapBadge">0 points</div>
+          </div>
+          <div id="db-map"></div>
+        </div>
+      </div>
+
+      <div class="db-panel db-panel--full">
+        <div class="db-panel-header">
+          <div class="db-panel-title">📋 Historique des visiteurs</div>
+          <button id="clearVisitorsBtn" style="padding:0.3rem 0.8rem;background:transparent;border:1.5px solid rgba(229,62,62,0.35);border-radius:8px;color:#e53e3e;font-size:0.75rem;font-weight:600;cursor:pointer;transition:all 0.2s;" onmouseenter="this.style.background='rgba(229,62,62,0.08)'" onmouseleave="this.style.background='transparent'">🗑 Tout effacer</button>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="db-table">
+            <thead><tr><th>#</th><th>Date / Heure</th><th>Ville</th><th>Pays</th><th>IP</th><th>Navigateur</th></tr></thead>
+            <tbody id="visitorsBody"><tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--text-faint);">Aucun visiteur enregistré.</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="db-msg-detail" id="msgDetail">
+    <div class="db-msg-detail-box">
+      <div class="db-msg-detail-head">
+        <div style="font-family:'Syne',sans-serif;font-weight:700;color:var(--text);">Détail du message</div>
+        <button class="db-msg-detail-close" id="msgDetailClose">✕</button>
+      </div>
+      <div id="msgDetailContent"></div>
+      <button class="db-msg-delete" id="msgDeleteBtn">🗑 Supprimer ce message</button>
+    </div>
+  </div>
+
+  <div class="db-notif" id="dbNotif">
+    <div class="db-notif-title" id="dbNotifTitle"></div>
+    <div class="db-notif-body" id="dbNotifBody"></div>
+  </div>
+
+  <script>
+  'use strict';
+  const ADMIN_USER   = 'admin';
+  const ADMIN_PASS   = 'mariama2026';
+  const KEY_VISITORS = 'md_visitors';
+  const KEY_MESSAGES = 'md_messages';
+  const SESSION_KEY  = 'md_admin_auth';
+
+  const $ = id => document.getElementById(id);
+  function loadJSON(k) { try { return JSON.parse(localStorage.getItem(k)) || []; } catch { return []; } }
+  function saveJSON(k, d) { localStorage.setItem(k, JSON.stringify(d)); }
+  function fmtDate(iso) {
+    const d = new Date(iso);
+    return d.toLocaleDateString('fr-FR') + ' ' + d.toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' });
+  }
+  function escHtml(s) {
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  /* Horloge */
+  function tickClock() {
+    const c = $('dbClock');
+    if (c) c.textContent = new Date().toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
+  }
+  setInterval(tickClock, 1000); tickClock();
+
+  /* Toast */
+  let notifTimer;
+  function showNotif(title, body) {
+    $('dbNotifTitle').textContent = title;
+    $('dbNotifBody').textContent  = body;
+    const n = $('dbNotif');
+    n.classList.add('show');
+    clearTimeout(notifTimer);
+    notifTimer = setTimeout(() => n.classList.remove('show'), 4500);
+  }
+
+  /* Auth */
+  function checkSession() { return sessionStorage.getItem(SESSION_KEY) === '1'; }
+  function showDashboard() {
+    $('loginScreen').style.display = 'none';
+    $('dashWrap').classList.add('active');
+    initDashboard();
+  }
+  if (checkSession()) showDashboard();
+
+  $('loginBtn').addEventListener('click', doLogin);
+  $('loginPass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+  function doLogin() {
+    const u = $('loginUser').value.trim();
+    const p = $('loginPass').value;
+    if (u === ADMIN_USER && p === ADMIN_PASS) {
+      sessionStorage.setItem(SESSION_KEY, '1');
+      $('loginErr').textContent = '';
+      showDashboard();
+    } else {
+      $('loginErr').textContent = 'Identifiant ou mot de passe incorrect.';
+    }
+  }
+
+  $('logoutBtn').addEventListener('click', () => { sessionStorage.removeItem(SESSION_KEY); location.reload(); });
+  $('closeBtn').addEventListener('click', () => {
+    if (document.referrer && document.referrer !== '') history.back();
+    else window.location.href = 'index.html';
+  });
+
+  let map, currentMsgId = null;
+  function initDashboard() {
+    renderStats(); renderMessages(); renderVisitors(); initMap();
+    setInterval(checkNewMessages, 30000);
+  }
+
+  function renderStats() {
+    const visitors  = loadJSON(KEY_VISITORS);
+    const messages  = loadJSON(KEY_MESSAGES);
+    const unread    = messages.filter(m => !m.read).length;
+    const countries = [...new Set(visitors.map(v => v.country).filter(c => c && c !== '—'))].length;
+    $('statVisits').textContent    = visitors.length;
+    $('statMessages').textContent  = messages.length;
+    $('statUnread').textContent    = unread;
+    $('statCountries').textContent = countries;
+    const badge = $('unreadBadge');
+    badge.textContent = unread + ' non lu' + (unread > 1 ? 's' : '');
+    if (unread > 0) badge.classList.add('unread'); else badge.classList.remove('unread');
+  }
+
+  function renderMessages() {
+    const messages = loadJSON(KEY_MESSAGES);
+    const list = $('msgList');
+    if (!messages.length) {
+      list.innerHTML = `<div class="db-empty"><div class="icon">📭</div><p>Aucun message pour l'instant.<br>Les messages envoyés via le formulaire apparaîtront ici.</p></div>`;
+      return;
+    }
+    list.innerHTML = messages.map(m => `
+      <div class="db-msg-item ${m.read ? 'read' : 'unread'}" onclick="openMsg(${m.id})">
+        <div class="db-msg-top">
+          <span class="db-msg-name">${escHtml(m.nom)}</span>
+          <span class="db-msg-time">${fmtDate(m.ts)}</span>
+        </div>
+        <div class="db-msg-sujet">${escHtml(m.sujet)}</div>
+        <div class="db-msg-preview">${escHtml(m.message)}</div>
+        ${!m.read ? '<div class="db-msg-unread-dot"></div>' : ''}
+      </div>`).join('');
+  }
+
+  window.openMsg = function(id) {
+    const messages = loadJSON(KEY_MESSAGES);
+    const msg = messages.find(m => m.id === id);
+    if (!msg) return;
+    if (!msg.read) { msg.read = true; saveJSON(KEY_MESSAGES, messages); renderMessages(); renderStats(); }
+    currentMsgId = id;
+    $('msgDetailContent').innerHTML = `
+      <div class="db-msg-detail-row"><span class="db-msg-detail-lbl">De</span><span class="db-msg-detail-val">${escHtml(msg.nom)} &lt;${escHtml(msg.email)}&gt;</span></div>
+      <div class="db-msg-detail-row"><span class="db-msg-detail-lbl">Date</span><span class="db-msg-detail-val">${fmtDate(msg.ts)}</span></div>
+      <div class="db-msg-detail-row"><span class="db-msg-detail-lbl">Sujet</span><span class="db-msg-detail-val">${escHtml(msg.sujet)}</span></div>
+      <div class="db-msg-detail-body">${escHtml(msg.message)}</div>
+      <a href="mailto:${escHtml(msg.email)}?subject=Re: ${encodeURIComponent(msg.sujet)}" style="display:inline-flex;align-items:center;gap:0.4rem;margin-top:1rem;padding:0.55rem 1.2rem;background:var(--accent);color:#fff;border-radius:8px;font-size:0.82rem;font-weight:700;text-decoration:none;">✉ Répondre par email</a>`;
+    $('msgDetail').classList.add('open');
+  };
+
+  $('msgDetailClose').addEventListener('click', () => $('msgDetail').classList.remove('open'));
+  $('msgDetail').addEventListener('click', e => { if (e.target === $('msgDetail')) $('msgDetail').classList.remove('open'); });
+  $('msgDeleteBtn').addEventListener('click', () => {
+    if (!currentMsgId) return;
+    if (!confirm('Supprimer ce message définitivement ?')) return;
+    saveJSON(KEY_MESSAGES, loadJSON(KEY_MESSAGES).filter(m => m.id !== currentMsgId));
+    $('msgDetail').classList.remove('open');
+    currentMsgId = null;
+    renderMessages(); renderStats();
+    showNotif('Message supprimé', 'Le message a été supprimé.');
+  });
+
+  let lastMsgCount = loadJSON(KEY_MESSAGES).length;
+  function checkNewMessages() {
+    const messages = loadJSON(KEY_MESSAGES);
+    if (messages.length > lastMsgCount) {
+      const newest = messages[0];
+      showNotif('🔔 Nouveau message !', `De ${newest.nom} — « ${newest.sujet} »`);
+      lastMsgCount = messages.length;
+      renderMessages(); renderStats();
+    }
+  }
+
+  function renderVisitors() {
+    const visitors = loadJSON(KEY_VISITORS);
+    const tbody = $('visitorsBody');
+    if (!visitors.length) {
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--text-faint);">Aucun visiteur enregistré.</td></tr>`;
+      return;
+    }
+    tbody.innerHTML = visitors.slice(0, 100).map((v, i) => {
+      const flag = v.country_code ? countryToFlag(v.country_code) : '';
+      const ua   = v.ua ? guessUA(v.ua) : '—';
+      return `<tr>
+        <td style="color:var(--text-faint);">${i + 1}</td>
+        <td>${fmtDate(v.ts)}</td>
+        <td>${escHtml(v.city)}</td>
+        <td>${flag} ${escHtml(v.country)}</td>
+        <td style="font-family:monospace;font-size:0.78rem;">${escHtml(v.ip)}</td>
+        <td>${escHtml(ua)}</td>
+      </tr>`;
+    }).join('');
+  }
+
+  $('clearVisitorsBtn').addEventListener('click', () => {
+    if (!confirm("Effacer tout l'historique des visiteurs ?")) return;
+    saveJSON(KEY_VISITORS, []);
+    renderVisitors(); renderStats();
+    if (map) map.eachLayer(l => { if (l instanceof L.CircleMarker) map.removeLayer(l); });
+    $('mapBadge').textContent = '0 points';
+    showNotif('Historique effacé', "L'historique des visiteurs a été supprimé.");
+  });
+
+  /* ===== CARTE — tuile OSM fiable avec fallback ===== */
+  function initMap() {
+    const mapDiv = $('db-map');
+    try {
+      map = L.map('db-map', { zoomControl: true, attributionControl: false }).setView([20, 10], 2);
+
+      /* Tuile principale : OpenStreetMap (fiable sans CDN tiers) */
+      const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+      });
+
+      /* Tuile de secours : CartoDB */
+      const cartoLayer = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        maxZoom: 18,
+        attribution: '© CartoDB'
+      });
+
+      /* Essayer OSM en premier, sinon CartoDB */
+      osmLayer.on('tileerror', function() {
+        if (!map.hasLayer(cartoLayer)) {
+          map.removeLayer(osmLayer);
+          cartoLayer.addTo(map);
+        }
+      });
+      osmLayer.addTo(map);
+
+      L.control.attribution({ prefix: '© OpenStreetMap · CartoDB' }).addTo(map);
+
+      /* Marqueurs visiteurs */
+      const visitors = loadJSON(KEY_VISITORS).filter(v => v.lat && v.lon);
+      let count = 0;
+      visitors.forEach(v => {
+        L.circleMarker([v.lat, v.lon], {
+          radius: 7, fillColor: '#e07b2a', color: '#f59e0b', weight: 1.5, fillOpacity: 0.8
+        })
+        .bindPopup(`<b style="color:#e07b2a;">${escHtml(v.city)}, ${escHtml(v.country)}</b><br><small>${fmtDate(v.ts)}</small>`)
+        .addTo(map);
+        count++;
+      });
+      $('mapBadge').textContent = count + ' point' + (count > 1 ? 's' : '');
+
+    } catch(e) {
+      mapDiv.innerHTML = '<div class="map-error"><span style="font-size:2rem;">🗺️</span><span>Carte indisponible</span></div>';
+    }
+  }
+
+  function countryToFlag(code) {
+    if (!code || code.length !== 2) return '';
+    return [...code.toUpperCase()].map(c => String.fromCodePoint(c.charCodeAt(0) + 127397)).join('');
+  }
+  function guessUA(ua) {
+    if (/Chrome\//.test(ua) && !/Chromium|Edg\/|OPR\//.test(ua)) return 'Chrome';
+    if (/Firefox\//.test(ua)) return 'Firefox';
+    if (/Edg\//.test(ua))  return 'Edge';
+    if (/OPR\//.test(ua))  return 'Opera';
+    if (/Safari\//.test(ua) && !/Chrome/.test(ua)) return 'Safari';
+    return 'Autre';
+  }
+  </script>
+</body>
+</html>
