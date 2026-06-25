@@ -227,14 +227,38 @@ if (btnSend) {
       return;
     }
 
-    // Simulation d'envoi
+    // Sauvegarde dans localStorage + envoi
     btnSend.disabled = true;
     btnSend.textContent = 'Envoi…';
     setTimeout(() => {
+      // Charger les messages existants
+      let messages = [];
+      try { messages = JSON.parse(localStorage.getItem('md_messages')) || []; } catch { messages = []; }
+
+      // Ajouter le nouveau message
+      messages.unshift({
+        id: Date.now(),
+        nom: nom,
+        email: email,
+        sujet: sujet || 'Sans objet',
+        message: message,
+        ts: new Date().toISOString(),
+        read: false
+      });
+
+      // Sauvegarder
+      localStorage.setItem('md_messages', JSON.stringify(messages));
+
       toast.textContent = '✅ Message envoyé avec succès ! Je vous répondrai bientôt.';
       toast.className = 'form-toast success';
       btnSend.textContent = 'ENVOYER';
       btnSend.disabled = false;
+
+      // Vider le formulaire
+      ['nom', 'email', 'sujet', 'message'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.value = '';
+      });
     }, 1200);
   });
 }
@@ -263,3 +287,15 @@ window.addEventListener('scroll', () => {
       : '';
   });
 });
+
+// ====== Toggle Dashboard Button ======
+const btnToggle = document.getElementById('btnDashboardToggle');
+const btnLink   = document.getElementById('btnDashboardLink');
+
+if (btnToggle && btnLink) {
+  btnToggle.addEventListener('click', () => {
+    const isVisible = btnLink.style.display !== 'none';
+    btnLink.style.display = isVisible ? 'none' : 'inline-flex';
+    btnToggle.style.opacity = isVisible ? '1' : '0.5';
+  });
+}
